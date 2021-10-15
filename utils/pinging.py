@@ -23,7 +23,7 @@ async def ping(dp: Dispatcher):
         now_month = int(now.split()[1])
         now_year = int(now.split()[2])
         now_hour = int(now.split()[3])
-        now_min = int(ow.split()[4])
+        now_min = int(now.split()[4])
         # Проверка
         check = True
         try:
