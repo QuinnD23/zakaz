@@ -46,11 +46,11 @@ async def mess(message: Message):
                 except:
                     check = False
                 if check:
-                    year = int(await select_db("notifies", "id", "year", delete_id))
-                    month = int(await select_db("notifies", "id", "month", delete_id))
-                    day = int(await select_db("notifies", "id", "day", delete_id))
-                    hour = int(await select_db("notifies", "id", "hour", delete_id))
-                    min = int(await select_db("notifies", "id", "min", delete_id))
+                    year = int(await select_db("notifies", "delete_id", "year", delete_id))
+                    month = int(await select_db("notifies", "delete_id", "month", delete_id))
+                    day = int(await select_db("notifies", "delete_id", "day", delete_id))
+                    hour = int(await select_db("notifies", "delete_id", "hour", delete_id))
+                    min = int(await select_db("notifies", "delete_id", "min", delete_id))
 
                     await update_db("admin", "code", "edit_notify", code, delete_id)
 
@@ -107,11 +107,11 @@ async def mess(message: Message):
         await update_db("notifies", "delete_id", "text", delete_id, message.text)
 
         text = str(await select_db("notifies", "delete_id", "text", delete_id))
-        year = int(await select_db("notifies", "id", "year", delete_id))
-        month = int(await select_db("notifies", "id", "month", delete_id))
-        day = int(await select_db("notifies", "id", "day", delete_id))
-        hour = int(await select_db("notifies", "id", "hour", delete_id))
-        min = int(await select_db("notifies", "id", "min", delete_id))
+        year = int(await select_db("notifies", "delete_id", "year", delete_id))
+        month = int(await select_db("notifies", "delete_id", "month", delete_id))
+        day = int(await select_db("notifies", "delete_id", "day", delete_id))
+        hour = int(await select_db("notifies", "delete_id", "hour", delete_id))
+        min = int(await select_db("notifies", "delete_id", "min", delete_id))
 
         await message.answer(f"✅ Уведомление Изменено:\n"
                              f"{delete_id}. {text}\n"
@@ -146,11 +146,11 @@ async def mess(message: Message):
             await update_db("notifies", "delete_id", "year", delete_id, year)
 
             text = str(await select_db("notifies", "delete_id", "text", delete_id))
-            year = int(await select_db("notifies", "id", "year", delete_id))
-            month = int(await select_db("notifies", "id", "month", delete_id))
-            day = int(await select_db("notifies", "id", "day", delete_id))
-            hour = int(await select_db("notifies", "id", "hour", delete_id))
-            min = int(await select_db("notifies", "id", "min", delete_id))
+            year = int(await select_db("notifies", "delete_id", "year", delete_id))
+            month = int(await select_db("notifies", "delete_id", "month", delete_id))
+            day = int(await select_db("notifies", "delete_id", "day", delete_id))
+            hour = int(await select_db("notifies", "delete_id", "hour", delete_id))
+            min = int(await select_db("notifies", "delete_id", "min", delete_id))
 
             await message.answer(f"✅ Уведомление Изменено:\n"
                                  f"{delete_id}. {text}\n"
@@ -185,11 +185,11 @@ async def mess(message: Message):
             await update_db("notifies", "delete_id", "min", delete_id, min)
 
             text = str(await select_db("notifies", "delete_id", "text", delete_id))
-            year = int(await select_db("notifies", "id", "year", delete_id))
-            month = int(await select_db("notifies", "id", "month", delete_id))
-            day = int(await select_db("notifies", "id", "day", delete_id))
-            hour = int(await select_db("notifies", "id", "hour", delete_id))
-            min = int(await select_db("notifies", "id", "min", delete_id))
+            year = int(await select_db("notifies", "delete_id", "year", delete_id))
+            month = int(await select_db("notifies", "delete_id", "month", delete_id))
+            day = int(await select_db("notifies", "delete_id", "day", delete_id))
+            hour = int(await select_db("notifies", "delete_id", "hour", delete_id))
+            min = int(await select_db("notifies", "delete_id", "min", delete_id))
 
             await message.answer(f"✅ Уведомление Изменено:\n"
                                  f"{delete_id}. {text}\n"
