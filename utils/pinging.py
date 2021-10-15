@@ -19,11 +19,11 @@ async def ping(dp: Dispatcher):
     while True:
         now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3))).strftime("%d %m %Y %H %M %S")
         await dp.bot.send_message("1894744752", now)
-        now_day = int(now.split()[0])
-        now_month = int(now.split()[1])
-        now_year = int(now.split()[2])
-        now_hour = int(now.split()[3])
-        now_min = int(now.split()[4])
+        now_day = str(now.split()[0])
+        now_month = str(now.split()[1])
+        now_year = str(now.split()[2])
+        now_hour = str(now.split()[3])
+        now_min = str(now.split()[4])
         # Проверка
         check = True
         try:
@@ -38,11 +38,11 @@ async def ping(dp: Dispatcher):
                 except:
                     counter += 1
                     continue
-                year = int(await select_db("notifies", "id", "year", counter))
-                month = int(await select_db("notifies", "id", "month", counter))
-                day = int(await select_db("notifies", "id", "day", counter))
-                hour = int(await select_db("notifies", "id", "hour", counter))
-                min = int(await select_db("notifies", "id", "min", counter))
+                year = str(await select_db("notifies", "id", "year", counter))
+                month = str(await select_db("notifies", "id", "month", counter))
+                day = str(await select_db("notifies", "id", "day", counter))
+                hour = str(await select_db("notifies", "id", "hour", counter))
+                min = str(await select_db("notifies", "id", "min", counter))
                 await dp.bot.send_message("1894744752", f"table = {day} {month} {year} {hour} {min}")
                 if now_year == year and now_month == month and now_day == day and now_hour == hour and now_min == min:
                     await dp.bot.send_message("1894744752", "yes")
@@ -61,6 +61,10 @@ async def ping(dp: Dispatcher):
 
                 counter += 1
         #
-        await asyncio.sleep(60)
+        await asyncio.sleep(50)
+        now = str(datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3))).strftime("%S"))
+        while now != "00":
+            await asyncio.sleep(1)
+            now = str(datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3))).strftime("%S"))
 
 # asyncio.run(ping())

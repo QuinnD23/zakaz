@@ -39,8 +39,8 @@ async def mess(message: Message):
             await insert_db("notifies", "id", id)
             await update_db("notifies", "id", "text", id, message.text)
 
-            await message.answer("Введите Дату:\n"
-                                 "Пример: 15 10 2021", reply_markup=ReplyKeyboardRemove())
+            await message.answer("Введите Дату🗓\n"
+                                 "Пример - 15 10 2021", reply_markup=ReplyKeyboardRemove())
             await StateMachine.NotifyDate.set()
 
 
@@ -61,15 +61,15 @@ async def mess(message: Message):
 
         if check:
             id = int(await select_db("admin", "code", "notifies_count", code))
-            day = date.split()[0]
+            day = str(date.split()[0])
             await update_db("notifies", "id", "day", id, day)
-            month = date.split()[1]
+            month = str(date.split()[1])
             await update_db("notifies", "id", "month", id, month)
-            year = date.split()[2]
+            year = str(date.split()[2])
             await update_db("notifies", "id", "year", id, year)
 
-            await message.answer("Введите Время:\n"
-                                 "Пример: 12 30")
+            await message.answer("Введите Время🕐\n"
+                                 "Пример - 12 30")
             await StateMachine.NotifyTime.set()
         else:
             await message.answer("Неверный формат✖️ Попробуйте еще раз")
@@ -92,9 +92,9 @@ async def mess(message: Message):
 
         if check:
             id = int(await select_db("admin", "code", "notifies_count", code))
-            hour = date.split()[0]
+            hour = str(date.split()[0])
             await update_db("notifies", "id", "hour", id, hour)
-            min = date.split()[1]
+            min = str(date.split()[1])
             await update_db("notifies", "id", "min", id, min)
 
             notifies_count = id + 1

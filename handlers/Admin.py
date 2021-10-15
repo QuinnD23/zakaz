@@ -53,7 +53,7 @@ async def mess(message: Message):
         await StateMachine.NotifyText.set()
 
     if message.text == "Редактировать уведомление✏️":
-        await message.answer("Список текущих уведомлений:", reply_markup=BackMenu)
+        await message.answer("⚡️Список текущих уведомлений:", reply_markup=BackMenu)
         counter = 0
         delete_id = 1
         notifies_count = int(await select_db("admin", "code", "notifies_count", code))
@@ -68,9 +68,9 @@ async def mess(message: Message):
             day = int(await select_db("notifies", "id", "day", counter))
             hour = int(await select_db("notifies", "id", "hour", counter))
             min = int(await select_db("notifies", "id", "min", counter))
-            await message.answer(f"{delete_id}. {text}\n"
-                                 f"Дата: {day}.{month}.{year}\n"
-                                 f"Время: {hour}:{min}")
+            await message.answer(f"{delete_id}💥{text}\n"
+                                 f"Дата - {day}.{month}.{year}\n"
+                                 f"Время - {hour}:{min}")
             await update_db("notifies", "id", "delete_id", counter, delete_id)
             counter += 1
             delete_id += 1

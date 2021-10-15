@@ -20,18 +20,18 @@ async def create_db():
             try:
                 cur.execute("CREATE TABLE notifies (id integer default 0,"
                             "text text default 0,"
-                            "year integer default 0,"
-                            "month integer default 0,"
-                            "day integer default 0,"
-                            "hour integer default 0,"
-                            "min integer default 0,"
+                            "year varchar default 0,"
+                            "month varchar default 0,"
+                            "day varchar default 0,"
+                            "hour varchar default 0,"
+                            "min varchar default 0,"
                             "delete_id integer default 0);")
             except:
                 pass
             # -----
             try:
-                cur.execute("CREATE TABLE admin (code varchar default 0,"
-                            "admin_name varchar default 0,"
+                cur.execute("CREATE TABLE admin (code varchar,"
+                            "admin_name varchar,"
                             "workers_count integer default 0,"
                             "notifies_count integer default 0,"
                             "edit_notify integer default 0);")

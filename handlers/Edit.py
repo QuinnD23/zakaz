@@ -46,18 +46,18 @@ async def mess(message: Message):
                 except:
                     check = False
                 if check:
-                    year = int(await select_db("notifies", "delete_id", "year", delete_id))
-                    month = int(await select_db("notifies", "delete_id", "month", delete_id))
-                    day = int(await select_db("notifies", "delete_id", "day", delete_id))
-                    hour = int(await select_db("notifies", "delete_id", "hour", delete_id))
-                    min = int(await select_db("notifies", "delete_id", "min", delete_id))
+                    year = str(await select_db("notifies", "delete_id", "year", delete_id))
+                    month = str(await select_db("notifies", "delete_id", "month", delete_id))
+                    day = str(await select_db("notifies", "delete_id", "day", delete_id))
+                    hour = str(await select_db("notifies", "delete_id", "hour", delete_id))
+                    min = str(await select_db("notifies", "delete_id", "min", delete_id))
 
                     await update_db("admin", "code", "edit_notify", code, delete_id)
 
                     await message.answer(f"Вы выбрали:\n"
-                                         f"{delete_id}. {text}\n"
-                                         f"Дата: {day}.{month}.{year}\n"
-                                         f"Время: {hour}:{min}", reply_markup=EditMenu)
+                                         f"{delete_id}💥{text}\n"
+                                         f"Дата - {day}.{month}.{year}\n"
+                                         f"Время - {hour}:{min}", reply_markup=EditMenu)
                     await message.answer("Что будем менять?")
                     await StateMachine.EditMain.set()
                 else:
@@ -80,18 +80,18 @@ async def mess(message: Message):
         await StateMachine.Admin.set()
     # -----
 
-    if message.text == "Текст":
-        await message.answer("Введите новый Текст:", reply_markup=ReplyKeyboardRemove())
+    if message.text == "Текст✏️":
+        await message.answer("Введите новый Текст✏️", reply_markup=ReplyKeyboardRemove())
         await StateMachine.Text.set()
 
-    if message.text == "Дата":
-        await message.answer("Введите новую Дату:\n"
-                             "Пример: 15 10 2021", reply_markup=ReplyKeyboardRemove())
+    if message.text == "Дата🗓":
+        await message.answer("Введите новую Дату🗓\n"
+                             "Пример - 15 10 2021", reply_markup=ReplyKeyboardRemove())
         await StateMachine.Date.set()
 
-    if message.text == "Время":
-        await message.answer("Введите новое Время:\n"
-                             "Пример: 12 30", reply_markup=ReplyKeyboardRemove())
+    if message.text == "Время🕐":
+        await message.answer("Введите новое Время🕐\n"
+                             "Пример - 12 30", reply_markup=ReplyKeyboardRemove())
         await StateMachine.Time.set()
 
 
@@ -107,16 +107,16 @@ async def mess(message: Message):
         await update_db("notifies", "delete_id", "text", delete_id, message.text)
 
         text = str(await select_db("notifies", "delete_id", "text", delete_id))
-        year = int(await select_db("notifies", "delete_id", "year", delete_id))
-        month = int(await select_db("notifies", "delete_id", "month", delete_id))
-        day = int(await select_db("notifies", "delete_id", "day", delete_id))
-        hour = int(await select_db("notifies", "delete_id", "hour", delete_id))
-        min = int(await select_db("notifies", "delete_id", "min", delete_id))
+        year = str(await select_db("notifies", "delete_id", "year", delete_id))
+        month = str(await select_db("notifies", "delete_id", "month", delete_id))
+        day = str(await select_db("notifies", "delete_id", "day", delete_id))
+        hour = str(await select_db("notifies", "delete_id", "hour", delete_id))
+        min = str(await select_db("notifies", "delete_id", "min", delete_id))
 
-        await message.answer(f"✅ Уведомление Изменено:\n"
-                             f"{delete_id}. {text}\n"
-                             f"Дата: {day}.{month}.{year}\n"
-                             f"Время: {hour}:{min}", reply_markup=EditMenu)
+        await message.answer(f"Уведомление Изменено:\n"
+                             f"{delete_id}💥{text}\n"
+                             f"Дата - {day}.{month}.{year}\n"
+                             f"Время - {hour}:{min}", reply_markup=EditMenu)
         await message.answer("Хотите изменить еще что-то?")
         await StateMachine.EditMain.set()
 
@@ -138,24 +138,24 @@ async def mess(message: Message):
 
         if check:
             delete_id = int(await select_db("admin", "code", "edit_notify", code))
-            day = date.split()[0]
+            day = str(date.split()[0])
             await update_db("notifies", "delete_id", "day", delete_id, day)
-            month = date.split()[1]
+            month = str(date.split()[1])
             await update_db("notifies", "delete_id", "month", delete_id, month)
-            year = date.split()[2]
+            year = str(date.split()[2])
             await update_db("notifies", "delete_id", "year", delete_id, year)
 
             text = str(await select_db("notifies", "delete_id", "text", delete_id))
-            year = int(await select_db("notifies", "delete_id", "year", delete_id))
-            month = int(await select_db("notifies", "delete_id", "month", delete_id))
-            day = int(await select_db("notifies", "delete_id", "day", delete_id))
-            hour = int(await select_db("notifies", "delete_id", "hour", delete_id))
-            min = int(await select_db("notifies", "delete_id", "min", delete_id))
+            year = str(await select_db("notifies", "delete_id", "year", delete_id))
+            month = str(await select_db("notifies", "delete_id", "month", delete_id))
+            day = str(await select_db("notifies", "delete_id", "day", delete_id))
+            hour = str(await select_db("notifies", "delete_id", "hour", delete_id))
+            min = str(await select_db("notifies", "delete_id", "min", delete_id))
 
-            await message.answer(f"✅ Уведомление Изменено:\n"
-                                 f"{delete_id}. {text}\n"
-                                 f"Дата: {day}.{month}.{year}\n"
-                                 f"Время: {hour}:{min}", reply_markup=EditMenu)
+            await message.answer(f"Уведомление Изменено:\n"
+                                 f"{delete_id}💥{text}\n"
+                                 f"Дата - {day}.{month}.{year}\n"
+                                 f"Время - {hour}:{min}", reply_markup=EditMenu)
             await message.answer("Хотите изменить еще что-то?")
             await StateMachine.EditMain.set()
         else:
@@ -179,22 +179,22 @@ async def mess(message: Message):
 
         if check:
             delete_id = int(await select_db("admin", "code", "edit_notify", code))
-            hour = date.split()[0]
+            hour = str(date.split()[0])
             await update_db("notifies", "delete_id", "hour", delete_id, hour)
-            min = date.split()[1]
+            min = str(date.split()[1])
             await update_db("notifies", "delete_id", "min", delete_id, min)
 
             text = str(await select_db("notifies", "delete_id", "text", delete_id))
-            year = int(await select_db("notifies", "delete_id", "year", delete_id))
-            month = int(await select_db("notifies", "delete_id", "month", delete_id))
-            day = int(await select_db("notifies", "delete_id", "day", delete_id))
-            hour = int(await select_db("notifies", "delete_id", "hour", delete_id))
-            min = int(await select_db("notifies", "delete_id", "min", delete_id))
+            year = str(await select_db("notifies", "delete_id", "year", delete_id))
+            month = str(await select_db("notifies", "delete_id", "month", delete_id))
+            day = str(await select_db("notifies", "delete_id", "day", delete_id))
+            hour = str(await select_db("notifies", "delete_id", "hour", delete_id))
+            min = str(await select_db("notifies", "delete_id", "min", delete_id))
 
-            await message.answer(f"✅ Уведомление Изменено:\n"
-                                 f"{delete_id}. {text}\n"
-                                 f"Дата: {day}.{month}.{year}\n"
-                                 f"Время: {hour}:{min}", reply_markup=EditMenu)
+            await message.answer(f"Уведомление Изменено:\n"
+                                 f"{delete_id}💥{text}\n"
+                                 f"Дата - {day}.{month}.{year}\n"
+                                 f"Время - {hour}:{min}", reply_markup=EditMenu)
             await message.answer("Хотите изменить еще что-то?")
             await StateMachine.EditMain.set()
         else:

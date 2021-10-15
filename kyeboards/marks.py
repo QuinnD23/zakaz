@@ -20,13 +20,13 @@ AdminMenu = ReplyKeyboardMarkup(
 EditMenu = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Текст"),
+            KeyboardButton(text="Текст✏️"),
         ],
         [
-            KeyboardButton(text="Дата"),
+            KeyboardButton(text="Дата🗓"),
         ],
         [
-            KeyboardButton(text="Время"),
+            KeyboardButton(text="Время🕐"),
         ],
         [
             KeyboardButton(text="Отменить◀️"),
