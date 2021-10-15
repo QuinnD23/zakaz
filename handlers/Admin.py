@@ -63,11 +63,11 @@ async def mess(message: Message):
             except:
                 counter += 1
                 continue
-            year = int(await select_db("notifies", "id", "year", counter))
-            month = int(await select_db("notifies", "id", "month", counter))
-            day = int(await select_db("notifies", "id", "day", counter))
-            hour = int(await select_db("notifies", "id", "hour", counter))
-            min = int(await select_db("notifies", "id", "min", counter))
+            year = str(await select_db("notifies", "id", "year", counter))
+            month = str(await select_db("notifies", "id", "month", counter))
+            day = str(await select_db("notifies", "id", "day", counter))
+            hour = str(await select_db("notifies", "id", "hour", counter))
+            min = str(await select_db("notifies", "id", "min", counter))
             await message.answer(f"{delete_id}💥{text}\n"
                                  f"Дата - {day}.{month}.{year}\n"
                                  f"Время - {hour}:{min}")

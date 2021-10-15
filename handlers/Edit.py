@@ -85,12 +85,12 @@ async def mess(message: Message):
         await StateMachine.Text.set()
 
     if message.text == "Дата🗓":
-        await message.answer("Введите новую Дату🗓\n"
+        await message.answer("🗓 Введите новую Дату\n"
                              "Пример - 15 10 2021", reply_markup=ReplyKeyboardRemove())
         await StateMachine.Date.set()
 
     if message.text == "Время🕐":
-        await message.answer("Введите новое Время🕐\n"
+        await message.answer("🕐 Введите новое Время\n"
                              "Пример - 12 30", reply_markup=ReplyKeyboardRemove())
         await StateMachine.Time.set()
 
