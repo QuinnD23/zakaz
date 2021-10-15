@@ -48,32 +48,32 @@ async def mess(message: Message):
         await message.answer("Введите номер сотрудника, которого хотите удалить:")
         await StateMachine.Delete.set()
 
-        if message.text == "Создать уведомление⚡️":
-            await message.answer("Введите Текст уведомления:", reply_markup=BackMenu)
-            await StateMachine.NotifyText.set()
+    if message.text == "Создать уведомление⚡️":
+        await message.answer("Введите Текст уведомления:", reply_markup=BackMenu)
+        await StateMachine.NotifyText.set()
 
-        if message.text == "Редактировать уведомление✏️":
-            await message.answer("Список текущих уведомлений:", reply_markup=BackMenu)
-            counter = 0
-            delete_id = 1
-            notifies_count = int(await select_db("admin", "code", "notifies_count", code))
-            while counter < notifies_count:
-                try:
-                    text = str(await select_db("notifies", "id", "text", counter))
-                except:
-                    counter += 1
-                    continue
-                year = int(await select_db("notifies", "id", "year", counter))
-                month = int(await select_db("notifies", "id", "month", counter))
-                day = int(await select_db("notifies", "id", "day", counter))
-                hour = int(await select_db("notifies", "id", "hour", counter))
-                min = int(await select_db("notifies", "id", "min", counter))
-                await message.answer(f"{delete_id}. {text}\n"
-                                     f"Дата: {day}.{month}.{year}\n"
-                                     f"Время: {hour}:{min}")
-                await update_db("workers", "id", "delete_id", counter, delete_id)
+    if message.text == "Редактировать уведомление✏️":
+        await message.answer("Список текущих уведомлений:", reply_markup=BackMenu)
+        counter = 0
+        delete_id = 1
+        notifies_count = int(await select_db("admin", "code", "notifies_count", code))
+        while counter < notifies_count:
+            try:
+                text = str(await select_db("notifies", "id", "text", counter))
+            except:
                 counter += 1
-                delete_id += 1
+                continue
+            year = int(await select_db("notifies", "id", "year", counter))
+            month = int(await select_db("notifies", "id", "month", counter))
+            day = int(await select_db("notifies", "id", "day", counter))
+            hour = int(await select_db("notifies", "id", "hour", counter))
+            min = int(await select_db("notifies", "id", "min", counter))
+            await message.answer(f"{delete_id}. {text}\n"
+                                 f"Дата: {day}.{month}.{year}\n"
+                                 f"Время: {hour}:{min}")
+            await update_db("workers", "id", "delete_id", counter, delete_id)
+            counter += 1
+            delete_id += 1
 
-            await message.answer("Введите номер уведомления, которое хотите изменить:")
-            await StateMachine.EditChoice.set()
+        await message.answer("Введите номер уведомления, которое хотите изменить:")
+         await StateMachine.EditChoice.set()
