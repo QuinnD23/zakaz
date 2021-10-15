@@ -18,7 +18,7 @@ async def ping(dp: Dispatcher):
         now = str(datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3))).strftime("%S"))
     while True:
         now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3))).strftime("%d %m %Y %H %M %S")
-        await dp.bot.send_message("1894744752", "hi")
+        await dp.bot.send_message("1894744752", now)
         now_day = now.split()[0]
         now_month = now.split()[1]
         now_year = now.split()[2]
