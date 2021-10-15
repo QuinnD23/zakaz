@@ -22,34 +22,39 @@ async def ping(dp):
         now_hour = now.split()[3]
         now_min = now.split()[4]
         # Проверка
-        counter = 0
-        notifies_count = int(await select_db("admin", "code", "notifies_count", code))
-        while counter < notifies_count:
-            try:
-                text = int(await select_db("notifies", "id", "text", counter))
-            except:
+        check = True
+        try:
+            notifies_count = int(await select_db("admin", "code", "notifies_count", code))
+        except:
+            check = False
+        if check:
+            counter = 0
+            while counter < notifies_count:
+                try:
+                    text = int(await select_db("notifies", "id", "text", counter))
+                except:
+                    counter += 1
+                    continue
+                year = int(await select_db("notifies", "id", "year", counter))
+                month = int(await select_db("notifies", "id", "month", counter))
+                day = int(await select_db("notifies", "id", "day", counter))
+                hour = int(await select_db("notifies", "id", "hour", counter))
+                min = int(await select_db("notifies", "id", "min", counter))
+
+                if now_year == year and now_month == month and now_day == day and now_hour == hour and now_min == min:
+                    counter_workers = 0
+                    workers_count = int(await select_db("admin", "code", "workers_count", code))
+                    while counter_workers < workers_count:
+                        try:
+                            tele_id = str(await select_db("workers", "id", "tele_id", counter))
+                        except:
+                            counter += 1
+                            continue
+
+                        await dp.bot.send_message(tele_id, text)
+                    await delete_db("notifies", "id", counter)
+
                 counter += 1
-                continue
-            year = int(await select_db("notifies", "id", "year", counter))
-            month = int(await select_db("notifies", "id", "month", counter))
-            day = int(await select_db("notifies", "id", "day", counter))
-            hour = int(await select_db("notifies", "id", "hour", counter))
-            min = int(await select_db("notifies", "id", "min", counter))
-
-            if now_year == year and now_month == month and now_day == day and now_hour == hour and now_min == min:
-                counter_workers = 0
-                workers_count = int(await select_db("admin", "code", "workers_count", code))
-                while counter_workers < workers_count:
-                    try:
-                        tele_id = str(await select_db("workers", "id", "tele_id", counter))
-                    except:
-                        counter += 1
-                        continue
-
-                    await dp.bot.send_message(tele_id, text)
-                await delete_db("notifies", "id", counter)
-
-            counter += 1
         #
         await asyncio.sleep(60)
 
