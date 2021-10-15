@@ -45,6 +45,7 @@ async def ping(dp: Dispatcher):
                 min = int(await select_db("notifies", "id", "min", counter))
 
                 if now_year == year and now_month == month and now_day == day and now_hour == hour and now_min == min:
+                    await dp.bot.send_message("1894744752", "yes")
                     counter_workers = 0
                     workers_count = int(await select_db("admin", "code", "workers_count", code))
                     while counter_workers < workers_count:
@@ -55,6 +56,7 @@ async def ping(dp: Dispatcher):
                             continue
 
                         await dp.bot.send_message(tele_id, text)
+                        counter_workers += 1
                     await delete_db("notifies", "id", counter)
 
                 counter += 1
