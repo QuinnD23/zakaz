@@ -39,7 +39,7 @@ async def mess(message: Message):
             await insert_db("notifies", "id", id)
             await update_db("notifies", "id", "text", id, message.text)
 
-            await message.answer("Введите Дату:"
+            await message.answer("Введите Дату:\n"
                                  "Пример: 15 10 2021", reply_markup=ReplyKeyboardRemove())
             await StateMachine.NotifyDate.set()
 
@@ -68,7 +68,7 @@ async def mess(message: Message):
             year = date.split()[2]
             await update_db("notifies", "id", "year", id, year)
 
-            await message.answer("Введите Время:"
+            await message.answer("Введите Время:\n"
                                  "Пример: 12 30")
             await StateMachine.NotifyTime.set()
         else:

@@ -71,7 +71,7 @@ async def mess(message: Message):
             await message.answer(f"{delete_id}. {text}\n"
                                  f"Дата: {day}.{month}.{year}\n"
                                  f"Время: {hour}:{min}")
-            await update_db("workers", "id", "delete_id", counter, delete_id)
+            await update_db("notifies", "id", "delete_id", counter, delete_id)
             counter += 1
             delete_id += 1
 

@@ -55,8 +55,8 @@ async def mess(message: Message):
                     await update_db("admin", "code", "edit_notify", code, delete_id)
 
                     await message.answer(f"Вы выбрали:\n"
-                                         f"{delete_id}. {text}"
-                                         f"Дата: {day}.{month}.{year}"
+                                         f"{delete_id}. {text}\n"
+                                         f"Дата: {day}.{month}.{year}\n"
                                          f"Время: {hour}:{min}", reply_markup=EditMenu)
                     await message.answer("Что будем менять?")
                     await StateMachine.EditMain.set()
@@ -85,12 +85,12 @@ async def mess(message: Message):
         await StateMachine.Text.set()
 
     if message.text == "Дата":
-        await message.answer("Введите новую Дату:"
+        await message.answer("Введите новую Дату:\n"
                              "Пример: 15 10 2021", reply_markup=ReplyKeyboardRemove())
         await StateMachine.Date.set()
 
     if message.text == "Время":
-        await message.answer("Введите новое Время:"
+        await message.answer("Введите новое Время:\n"
                              "Пример: 12 30", reply_markup=ReplyKeyboardRemove())
         await StateMachine.Time.set()
 
@@ -114,8 +114,8 @@ async def mess(message: Message):
         min = int(await select_db("notifies", "id", "min", delete_id))
 
         await message.answer(f"✅ Уведомление Изменено:\n"
-                             f"{delete_id}. {text}"
-                             f"Дата: {day}.{month}.{year}"
+                             f"{delete_id}. {text}\n"
+                             f"Дата: {day}.{month}.{year}\n"
                              f"Время: {hour}:{min}", reply_markup=EditMenu)
         await message.answer("Хотите изменить еще что-то?")
         await StateMachine.EditMain.set()
@@ -153,8 +153,8 @@ async def mess(message: Message):
             min = int(await select_db("notifies", "id", "min", delete_id))
 
             await message.answer(f"✅ Уведомление Изменено:\n"
-                                 f"{delete_id}. {text}"
-                                 f"Дата: {day}.{month}.{year}"
+                                 f"{delete_id}. {text}\n"
+                                 f"Дата: {day}.{month}.{year}\n"
                                  f"Время: {hour}:{min}", reply_markup=EditMenu)
             await message.answer("Хотите изменить еще что-то?")
             await StateMachine.EditMain.set()
@@ -192,8 +192,8 @@ async def mess(message: Message):
             min = int(await select_db("notifies", "id", "min", delete_id))
 
             await message.answer(f"✅ Уведомление Изменено:\n"
-                                 f"{delete_id}. {text}"
-                                 f"Дата: {day}.{month}.{year}"
+                                 f"{delete_id}. {text}\n"
+                                 f"Дата: {day}.{month}.{year}\n"
                                  f"Время: {hour}:{min}", reply_markup=EditMenu)
             await message.answer("Хотите изменить еще что-то?")
             await StateMachine.EditMain.set()
