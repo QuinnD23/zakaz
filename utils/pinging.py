@@ -1,3 +1,5 @@
+from aiogram import Dispatcher
+
 import datetime
 
 import asyncio
@@ -9,7 +11,7 @@ from data.config import code
 from handlers.db_commands import insert_db, update_db, select_db, delete_db
 
 
-async def ping(dp):
+async def ping(dp: Dispatcher):
     now = ""
     while now != "00":
         await asyncio.sleep(1)

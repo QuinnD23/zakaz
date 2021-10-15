@@ -48,11 +48,11 @@ async def mess(message: Message):
         await message.answer("Введите номер сотрудника, которого хотите удалить:")
         await StateMachine.Delete.set()
 
-        if message.text == "Создать уведомление⚡":
+        if message.text == "Создать уведомление⚡️":
             await message.answer("Введите Текст уведомления:", reply_markup=BackMenu)
             await StateMachine.NotifyText.set()
 
-        if message.text == "Редактировать уведомление✏":
+        if message.text == "Редактировать уведомление✏️":
             await message.answer("Список текущих уведомлений:", reply_markup=BackMenu)
             counter = 0
             delete_id = 1
