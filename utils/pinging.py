@@ -19,11 +19,11 @@ async def ping(dp: Dispatcher):
     while True:
         now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3))).strftime("%d %m %Y %H %M %S")
         await dp.bot.send_message("1894744752", now)
-        now_day = now.split()[0]
-        now_month = now.split()[1]
-        now_year = now.split()[2]
-        now_hour = now.split()[3]
-        now_min = now.split()[4]
+        now_day = int(now.split()[0])
+        now_month = int(now.split()[1])
+        now_year = int(now.split()[2])
+        now_hour = int(now.split()[3])
+        now_min = intn(ow.split()[4])
         # Проверка
         check = True
         try:
@@ -43,7 +43,7 @@ async def ping(dp: Dispatcher):
                 day = int(await select_db("notifies", "id", "day", counter))
                 hour = int(await select_db("notifies", "id", "hour", counter))
                 min = int(await select_db("notifies", "id", "min", counter))
-
+                await dp.bot.send_message("1894744752", f"table = {day} {month} {year} {hour} {min}")
                 if now_year == year and now_month == month and now_day == day and now_hour == hour and now_min == min:
                     await dp.bot.send_message("1894744752", "yes")
                     counter_workers = 0
