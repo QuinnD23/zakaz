@@ -48,9 +48,9 @@ async def ping(dp: Dispatcher):
                     workers_count = int(await select_db("admin", "code", "workers_count", code))
                     while counter_workers < workers_count:
                         try:
-                            tele_id = str(await select_db("workers", "id", "tele_id", counter))
+                            tele_id = str(await select_db("workers", "id", "tele_id", counter_workers))
                         except:
-                            counter += 1
+                            counter_workers += 1
                             continue
 
                         await dp.bot.send_message(tele_id, text)
