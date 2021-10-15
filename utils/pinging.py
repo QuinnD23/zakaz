@@ -23,7 +23,7 @@ async def ping(dp: Dispatcher):
         now_month = int(now.split()[1])
         now_year = int(now.split()[2])
         now_hour = int(now.split()[3])
-        now_min = intn(ow.split()[4])
+        now_min = int(ow.split()[4])
         # Проверка
         check = True
         try:
@@ -34,7 +34,7 @@ async def ping(dp: Dispatcher):
             counter = 0
             while counter < notifies_count:
                 try:
-                    text = int(await select_db("notifies", "id", "text", counter))
+                    text = str(await select_db("notifies", "id", "text", counter))
                 except:
                     counter += 1
                     continue
