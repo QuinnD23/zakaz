@@ -76,4 +76,4 @@ async def mess(message: Message):
             delete_id += 1
 
         await message.answer("Введите номер уведомления, которое хотите изменить:")
-         await StateMachine.EditChoice.set()
+        await StateMachine.EditChoice.set()
