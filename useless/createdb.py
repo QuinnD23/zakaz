@@ -30,8 +30,7 @@ async def create_db():
                 pass
             # -----
             try:
-                cur.execute("CREATE TABLE admin (id integer default 0,"
-                            "code varchar default 0,"
+                cur.execute("CREATE TABLE admin (code varchar default 0,"
                             "admin_name varchar default 0,"
                             "workers_count integer default 0,"
                             "notifies_count integer default 0,"
