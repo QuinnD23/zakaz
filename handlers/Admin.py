@@ -40,7 +40,7 @@ async def mess(message: Message):
             except:
                 counter += 1
                 continue
-            await message.answer(f"{delete_id}. {worker_name}:")
+            await message.answer(f"{delete_id}. {worker_name}")
             await update_db("workers", "id", "delete_id", counter, delete_id)
             counter += 1
             delete_id += 1
