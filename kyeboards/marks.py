@@ -1,32 +1,17 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-AdminMenu = ReplyKeyboardMarkup(
+StartMenu = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Добавить сотрудника✅"),
-        ],
-        [
-            KeyboardButton(text="Удалить сотрудника❌"),
-        ],
-        [
-            KeyboardButton(text="Создать уведомление⚡️"),
-        ],
-        [
-            KeyboardButton(text="Редактировать уведомление✏️"),
+            KeyboardButton(text="Новый заказ🛠"),
         ],
     ],
     resize_keyboard=True
 )
-EditMenu = ReplyKeyboardMarkup(
+ChoiceAutoMenu = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Текст✏️"),
-        ],
-        [
-            KeyboardButton(text="Дата🗓"),
-        ],
-        [
-            KeyboardButton(text="Время🕐"),
+            KeyboardButton(text="Добавить авто➕"),
         ],
         [
             KeyboardButton(text="Отменить◀️"),
@@ -35,11 +20,21 @@ EditMenu = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-BackMenu = ReplyKeyboardMarkup(
+ChoicePlaceMenu = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Отменить◀️"),
+            KeyboardButton(text="Добавить район➕"),
         ],
     ],
     resize_keyboard=True
 )
+
+BonusMenu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Нет скидки❌"),
+        ],
+    ],
+    resize_keyboard=True
+)
+
