@@ -9,7 +9,7 @@ from handlers.db_commands import insert_db, update_db, select_db, delete_db
 from states.statates import StateMachine
 
 
-@dp.message_handler(content_types=["photo"], state=StateMachine.PhotoTre)
+@dp.message_handler(content_types=["photo"], state=StateMachine.PhotoMar)
 async def send_photo(message: Message):
     user_id = str(message.from_user.id)
     order_id = str(await select_db("users", "user_id", "orders_count", user_id)) + "$" + user_id

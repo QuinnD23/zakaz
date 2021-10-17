@@ -144,7 +144,7 @@ async def mess(message: Message):
 
         if check:
             order_id = str(await select_db("users", "user_id", "orders_count", user_id)) + "$" + user_id
-            await update_db("orders", "order_id", "dime_tre", order_id, dime_tre)
+            await update_db("orders", "id", "dime_tre", order_id, dime_tre)
 
             await message.answer("Данные о размере полуены✅\n"
                                  "Введите когда была получена трещина:")
@@ -168,7 +168,7 @@ async def mess(message: Message):
     else:
         order_id = str(await select_db("users", "user_id", "orders_count", user_id)) + "$" + user_id
         srok_tre = message.text
-        await update_db("orders", "order_id", "srok_tre", order_id, srok_tre)
+        await update_db("orders", "id", "srok_tre", order_id, srok_tre)
 
         await message.answer("Данные о сроке полуены✅\n"
                              "Выберите район:", reply_markup=ChoicePlaceMenu)
@@ -285,14 +285,14 @@ async def mess(message: Message):
         name = str(await select_db("users", "user_id", "name", user_id))
         number = str(await select_db("users", "user_id", "number", user_id))
 
-        auto = str(await select_db("orders", "order_id", "auto", order_id))
-        vin = str(await select_db("orders", "order_id", "vin", order_id))
-        dime_tre = str(await select_db("orders", "order_id", "dime_tre", order_id))
-        srok_tre = str(await select_db("orders", "order_id", "srok_tre", order_id))
-        place = str(await select_db("orders", "order_id", "place", order_id))
+        auto = str(await select_db("orders", "id", "auto", order_id))
+        vin = str(await select_db("orders", "id", "vin", order_id))
+        dime_tre = str(await select_db("orders", "id", "dime_tre", order_id))
+        srok_tre = str(await select_db("orders", "id", "srok_tre", order_id))
+        place = str(await select_db("orders", "id", "place", order_id))
 
-        photo_tre = str(await select_db("orders", "order_id", "photo_tre", order_id))
-        photo_mar = str(await select_db("orders", "order_id", "photo_mar", order_id))
+        photo_tre = str(await select_db("orders", "id", "photo_tre", order_id))
+        photo_mar = str(await select_db("orders", "id", "photo_mar", order_id))
 
         await dp.bot.send_message(admin_id, f"❗️ Новый заказ №{order_id}\n"
                                             f"\n"
