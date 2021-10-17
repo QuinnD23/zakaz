@@ -308,8 +308,8 @@ async def mess(message: Message):
         await dp.bot.send_photo(admin_id, photo_tre, caption=f"Фото трещины №{order_id}")
         await dp.bot.send_photo(admin_id, photo_mar, caption=f"Фото маркировки №{order_id}")
 
-        orders_count = int(await select_db("admin", "code", "orders_count", code)) + 1
-        await update_db("admin", "code", "orders_count", code, orders_count)
+        orders_count = int(await select_db("users", "user_id", "orders_count", user_id)) + 1
+        await update_db("users", "user_id", "orders_count", user_id, orders_count)
 
         await message.answer("Закакз успешно создан🛠\n"
                              "Ожидайте ответа", reply_markup=StartMenu)
