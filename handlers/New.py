@@ -146,7 +146,7 @@ async def mess(message: Message):
             order_id = str(await select_db("users", "user_id", "orders_count", user_id)) + "$" + user_id
             await update_db("orders", "id", "dime_tre", order_id, dime_tre)
 
-            await message.answer("Данные о размере полуены✅\n"
+            await message.answer("Данные о размере получены✅\n"
                                  "Введите когда была получена трещина:")
             await StateMachine.SrokTre.set()
         else:
@@ -170,7 +170,7 @@ async def mess(message: Message):
         srok_tre = message.text
         await update_db("orders", "id", "srok_tre", order_id, srok_tre)
 
-        await message.answer("Данные о сроке полуены✅\n"
+        await message.answer("Данные о сроке получены✅\n"
                              "Выберите район:", reply_markup=ChoicePlaceMenu)
 
         counter = 1

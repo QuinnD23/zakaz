@@ -153,6 +153,10 @@ async def mess(message: Message):
     else:
         id = str(await select_db("users", "user_id", "places_count", user_id)) + "$" + user_id
         place = message.text
+        try:
+            await insert_db("places", "id", id)
+        except:
+            pass
         await update_db("places", "id", "place", id, place)
 
         places_count = int(await select_db("users", "user_id", "places_count", user_id)) + 1
