@@ -182,7 +182,7 @@ async def mess(message: Message):
         while counter < autos_count:
             id = str(counter) + "$" + user_id
             auto = await select_db("autos", "id", "auto", id)
-            vin = await select_db("autos", "id", "auto", id)
+            vin = await select_db("autos", "id", "vin", id)
             await message.answer(f"Номер {counter}\n"
                                  f"🚙 Авто - {auto}\n"
                                  f"📙 VIN - {vin}")

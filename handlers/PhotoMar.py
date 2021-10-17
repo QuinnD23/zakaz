@@ -15,7 +15,7 @@ async def send_photo(message: Message):
     order_id = str(await select_db("users", "user_id", "orders_count", user_id)) + "$" + user_id
 
     photo_mar = str(message.photo[-1].file_id)
-    await update_db("orders", "id", "photo_mar", id, photo_mar)
+    await update_db("orders", "id", "photo_mar", order_id, photo_mar)
 
     await message.answer("Фото маркировки стекла получено✅\n"
                          "Введите размеры трещины в см:")
