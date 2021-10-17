@@ -11,8 +11,8 @@ async def create_db():
             # -----
             try:
                 cur.execute("CREATE TABLE admin (code varchar,"
-                            "admin_id varchar,"
-                            "admin_name varchar);")
+                            "admin_name varchar,"
+                            "admin_id varchar);")
             except:
                 pass
             # -----
