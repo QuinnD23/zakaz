@@ -53,7 +53,7 @@ async def mess(message: Message):
                         check = False
 
                     if check:
-                        vin = await select_db("autos", "id", "auto", auto_id)
+                        vin = await select_db("autos", "id", "vin", auto_id)
                         order_id = str(await select_db("users", "user_id", "orders_count", user_id)) + "$" + user_id
                         await update_db("orders", "id", "auto", order_id, auto)
                         await update_db("orders", "id", "vin", order_id, vin)

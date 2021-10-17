@@ -41,7 +41,7 @@ async def create_db():
                 pass
             # -----
             try:
-                cur.execute("CREATE TABLE orders (id varchar,"
+                cur.execute("CREATE TABLE orders (id varchar primary key,"
                             "auto varchar,"
                             "vin varchar,"
                             "photo_tre varchar,"
