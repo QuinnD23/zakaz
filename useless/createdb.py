@@ -12,7 +12,7 @@ async def create_db():
             try:
                 cur.execute("CREATE TABLE admin (code varchar,"
                             "admin_id varchar,"
-                            "admin_id varchar);")
+                            "admin_name varchar);")
             except:
                 pass
             # -----
