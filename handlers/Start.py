@@ -179,6 +179,12 @@ async def mess(message: Message):
     # -----
 
     if message.text == "Новый заказ🛠":
+        id = str(await select_db("users", "user_id", "orders_count", user_id)) + "$" + user_id
+        try:
+            await insert_db("orders", "id", id)
+        except:
+            pass
+
         await message.answer("Выберите автомобиль:", reply_markup=ReplyKeyboardRemove())
 
         counter = 1

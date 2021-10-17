@@ -201,7 +201,7 @@ async def mess(message: Message):
     # -----
     else:
         if message.text == "Добавить район➕":
-            await message.answer("Введите ваш Район::")
+            await message.answer("Введите ваш Район:", reply_markup=ReplyKeyboardRemove())
             await StateMachine.AddPlace.set()
         else:
             check = True
