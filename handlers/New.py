@@ -181,6 +181,7 @@ async def mess(message: Message):
 
             await message.answer(f"Номер {counter}\n"
                                  f"🏝 Район - {place}")
+            counter += 1
 
         await message.answer("⚡️Отправьте номер нужного района или добавьте новый")
         await StateMachine.PlaceChoice.set()

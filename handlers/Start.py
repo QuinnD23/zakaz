@@ -175,7 +175,7 @@ async def mess(message: Message):
     # -----
 
     if message.text == "Новый заказ🛠":
-        await message.answer("Выберите автомобиль:")
+        await message.answer("Выберите автомобиль:", reply_markup=ReplyKeyboardRemove())
 
         counter = 1
         autos_count = int(await select_db("users", "user_id", "autos_count", user_id))
@@ -186,6 +186,7 @@ async def mess(message: Message):
             await message.answer(f"Номер {counter}\n"
                                  f"🚙 Авто - {auto}\n"
                                  f"📙 VIN - {vin}")
+            counter += 1
 
         await message.answer("⚡️Отправьте номер нужного автомобиля или добавьте новый", reply_markup=ChoiceAutoMenu)
         await StateMachine.AutoChoice.set()
