@@ -303,7 +303,8 @@ async def mess(message: Message):
                                             f"📙 VIN: {vin}\n"
                                             f"🏝 Район: {place}\n"
                                             f"🔹 Размер: {dime_tre}см\n"
-                                            f"🔹 Срок: {srok_tre}\n")
+                                            f"🔹 Срок: {srok_tre}\n"
+                                            f"🔮 Бонус: {bonus}")
 
         await dp.bot.send_photo(admin_id, photo_tre, caption=f"Фото трещины №{order_id}")
         await dp.bot.send_photo(admin_id, photo_mar, caption=f"Фото маркировки №{order_id}")
