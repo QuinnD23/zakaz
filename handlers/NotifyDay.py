@@ -152,12 +152,12 @@ async def mess(message: Message):
                     id_notify = int(await select_db("admin", "code", "notifies_count", code))
                     id = int(await select_db("notifies", "id", "members_count", id_notify))
                     try:
-                        await insert_db("notifies_members", "id", id)
+                        await insert_db("notifiesmembers", "id", id)
                     except:
                         pass
-                    await update_db("notifies_members", "id", "id_notify", id, id_notify)
-                    await update_db("notifies_members", "id", "member_name", id, member_name)
-                    await update_db("notifies_members", "id", "member_id", id, member_id)
+                    await update_db("notifiesmembers", "id", "id_notify", id, id_notify)
+                    await update_db("notifiesmembers", "id", "member_name", id, member_name)
+                    await update_db("notifiesmembers", "id", "member_id", id, member_id)
 
                     id += 1
                     await update_db("notifies", "id", "members_count", id_notify, id)
