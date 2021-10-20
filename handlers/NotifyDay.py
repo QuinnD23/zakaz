@@ -97,9 +97,6 @@ async def mess(message: Message):
             min = str(date.split()[1])
             await update_db("notifies", "id", "min", id, min)
 
-            notifies_count = id + 1
-            await update_db("admin", "code", "notifies_count", code, notifies_count)
-
             await message.answer("👨 Выберите сотрудников:")
 
             counter = 0
@@ -117,7 +114,7 @@ async def mess(message: Message):
                 delete_id += 1
 
             await message.answer("Введите номер сотрудника, которому хотите отправить уведомление:", reply_markup=MembersMenu)
-            await message.answer("Когда будут выбраны все сотрудники, нажмите 'Стоп⛔️'")
+            await message.answer("Когда будут выбраны все сотрудники, нажмите - Стоп⛔️")
             await StateMachine.NotifyMembers.set()
         else:
             await message.answer("Неверный формат✖️ Попробуйте еще раз")
@@ -131,8 +128,12 @@ async def mess(message: Message):
         await StateMachine.Admin.set()
     # -----
     else:
-        if message.text == "Стоп⛔":
+        if message.text == "Стоп⛔️":
             await message.answer("Уведомление успешно создано⚡️", reply_markup=AdminMenu)
+
+            notifies_count = id + 1
+            await update_db("admin", "code", "notifies_count", code, notifies_count)
+
             await StateMachine.Admin.set()
         else:
             check = True
@@ -151,13 +152,13 @@ async def mess(message: Message):
                     member_id = str(await select_db("workers", "delete_id", "tele_id", delete_id))
                     id_notify = int(await select_db("admin", "code", "notifies_count", code))
                     id = int(await select_db("notifies", "id", "members_count", id_notify))
-                    try:
-                        await insert_db("notifiesmembers", "id", id)
-                    except:
-                        pass
+                    await insert_db("notifiesmembers", "id", id)
+
                     await update_db("notifiesmembers", "id", "id_notify", id, id_notify)
                     await update_db("notifiesmembers", "id", "member_name", id, member_name)
                     await update_db("notifiesmembers", "id", "member_id", id, member_id)
+
+                    await message.answer(f"✅ @{member_name}")
 
                     id += 1
                     await update_db("notifies", "id", "members_count", id_notify, id)
