@@ -153,8 +153,7 @@ async def mess(message: Message):
                     id_notify = int(await select_db("admin", "code", "notifies_count", code))
                     id = int(await select_db("notifies", "id", "members_count", id_notify))
                     await insert_db("notifiesmembers", "id", id)
-
-                    await update_db("notifiesmembers", "id", "id_notify", id, id_notify)
+                    
                     await update_db("notifiesmembers", "id", "member_name", id, member_name)
                     await update_db("notifiesmembers", "id", "member_id", id, member_id)
 
