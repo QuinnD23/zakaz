@@ -13,7 +13,7 @@ from handlers.db_commands import insert_db, update_db, select_db, delete_db
 from states.statates import StateMachine
 
 # marks
-from kyeboards.marks import AdminMenu, BackMenu
+from kyeboards.marks import AdminMenu, BackMenu, NotifyMenu
 
 
 @dp.message_handler(state=StateMachine.Admin)
@@ -49,7 +49,7 @@ async def mess(message: Message):
         await StateMachine.Delete.set()
 
     if message.text == "Создать уведомление⚡️":
-        await message.answer("Выберите тип уведомления:", reply_markup=BackMenu)
+        await message.answer("Выберите тип уведомления:", reply_markup=NotifyMenu)
         await StateMachine.NotifyChoice.set()
 
     if message.text == "Редактировать уведомление✏️":
@@ -97,6 +97,6 @@ async def mess(message: Message):
         await message.answer("Введите Текст уведомления:", reply_markup=ReplyKeyboardRemove())
         await StateMachine.NotifyTextWeek.set()
 
-    if message.text == "Конкретная дата🌩️":
+    if message.text == "Конкретная дата🌩":
         await message.answer("Введите Текст уведомления:", reply_markup=ReplyKeyboardRemove())
         await StateMachine.NotifyText.set()

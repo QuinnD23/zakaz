@@ -9,7 +9,7 @@ AdminMenu = ReplyKeyboardMarkup(
             KeyboardButton(text="Удалить сотрудника❌"),
         ],
         [
-            KeyboardButton(text="Создать уведомление🗓️"),
+            KeyboardButton(text="Создать уведомление⚡️"),
         ],
         [
             KeyboardButton(text="Редактировать уведомление✏️"),
