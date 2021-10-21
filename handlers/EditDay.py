@@ -56,9 +56,9 @@ async def mess(message: Message):
                     members_counter = 0
                     members_count = int(await select_db("notifies", "delete_id", "members_count", delete_id))
                     while members_counter < members_count:
-                        id = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(members_counter)
+                        id_member = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(members_counter)
                         try:
-                            member_name = str(await select_db("notifiesmembers", "id", "member_name", id))
+                            member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
                         except:
                             members_counter += 1
                             continue
@@ -136,9 +136,9 @@ async def mess(message: Message):
         members_counter = 0
         members_count = int(await select_db("notifies", "delete_id", "members_count", delete_id))
         while members_counter < members_count:
-            id = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(members_counter)
+            id_member = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(members_counter)
             try:
-                member_name = str(await select_db("notifiesmembers", "id", "member_name", id))
+                member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
             except:
                 members_counter += 1
                 continue
@@ -181,14 +181,14 @@ async def mess(message: Message):
             try:
                 member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
             except:
-                members_count += 1
+                counter_members += 1
                 continue
 
             await message.answer(f"{delete_id_member}. {member_name}")
             delete_id_member_table = str(delete_id) + '#' + str(delete_id_member)
             await update_db("notifiesmembers", "id_member", "delete_id", id_member, delete_id_member_table)
             delete_id_member = 1
-            members_count += 1
+            counter_members += 1
 
         await message.answer("Введите номер сотрудника, которому хотите удалить❌:", reply_markup=MembersMenu)
         await message.answer("Когда будут выбраны все сотрудники, нажмите - Стоп⛔️")
@@ -211,9 +211,9 @@ async def mess(message: Message):
             members_counter = 0
             members_count = int(await select_db("notifies", "delete_id", "members_count", delete_id))
             while members_counter < members_count:
-                id = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(members_counter)
+                id_member = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(members_counter)
                 try:
-                    member_name = str(await select_db("notifiesmembers", "id", "member_name", id))
+                    member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
                 except:
                     members_counter += 1
                     continue
@@ -285,9 +285,9 @@ async def mess(message: Message):
             members_counter = 0
             members_count = int(await select_db("notifies", "delete_id", "members_count", delete_id))
             while members_counter < members_count:
-                id = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(members_counter)
+                id_member = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(members_counter)
                 try:
-                    member_name = str(await select_db("notifiesmembers", "id", "member_name", id))
+                    member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
                 except:
                     members_counter += 1
                     continue

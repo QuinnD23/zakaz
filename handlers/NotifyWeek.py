@@ -136,7 +136,7 @@ async def mess(message: Message):
             await message.answer("Уведомление успешно создано⚡️", reply_markup=AdminMenu)
 
             notifies_week_count = int(await select_db("admin", "code", "notifies_week_count", code)) + 1
-            await update_db("admin", "code", "notifies_count", code, notifies_week_count)
+            await update_db("admin", "code", "notifies_week_count", code, notifies_week_count)
 
             await StateMachine.Admin.set()
         else:

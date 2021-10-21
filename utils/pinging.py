@@ -23,7 +23,6 @@ async def ping(dp: Dispatcher):
         now_year = str(now.split()[2])
         now_hour = str(now.split()[3])
         now_min = str(now.split()[4])
-        now_named_day = str(datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3))).strftime("%A"))
         # Проверка
         check = True
         try:
@@ -65,6 +64,8 @@ async def ping(dp: Dispatcher):
                         counter_members += 1
                     await delete_db("notifies", "id", counter)
                 counter += 1
+
+        now_named_day = str(datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3))).strftime("%A"))
         # Проверка2
         check = True
         try:
