@@ -151,16 +151,17 @@ async def mess(message: Message):
                 if check:
                     member_id = str(await select_db("workers", "delete_id", "tele_id", delete_id))
                     id_notify = int(await select_db("admin", "code", "notifies_count", code))
-                    id = int(await select_db("notifies", "id", "members_count", id_notify))
-                    await insert_db("notifiesmembers", "id", id)
+                    id_member = str(id_notify) + '#' + str(await select_db("notifies", "id", "members_count", id_notify))
 
-                    await update_db("notifiesmembers", "id", "member_name", id, member_name)
-                    await update_db("notifiesmembers", "id", "member_id", id, member_id)
+                    await insert_db("notifiesmembers", "id_member", id_member)
+
+                    await update_db("notifiesmembers", "id_member", "member_name", id_member, member_name)
 
                     await message.answer(f"✅ {member_name}")
 
-                    id += 1
-                    await update_db("notifies", "id", "members_count", id_notify, id)
+                    members_count = int(await select_db("notifies", "id", "members_count", id_notify)) + 1
+                    await update_db("notifies", "id", "members_count", id_notify, members_count)
+
                     await update_db("workers", "delete_id", "delete_id", delete_id, -1)
                 else:
                     await message.answer("Неверный формат✖️ Попробуйте еще раз")

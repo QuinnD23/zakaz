@@ -44,17 +44,19 @@ async def ping(dp: Dispatcher):
                 min = str(await select_db("notifies", "id", "min", counter))
 
                 if now_year == year and now_month == month and now_day == day and now_hour == hour and now_min == min:
-                    counter_workers = 0
-                    workers_count = int(await select_db("admin", "code", "workers_count", code))
-                    while counter_workers < workers_count:
+                    counter_members = 0
+                    members_count = int(await select_db("notifies", "id", "members_count", counter))
+                    while counter_members < members_count:
+                        id_member = str(counter) + '#' + str(counter_members)
+                        member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
                         try:
-                            tele_id = str(await select_db("workers", "id", "tele_id", counter_workers))
+                            tele_id = str(await select_db("workers", "member_name", "tele_id", member_name))
                         except:
-                            counter_workers += 1
+                            members_count += 1
                             continue
                         if tele_id != "0":
                             await dp.bot.send_message(tele_id, text)
-                        counter_workers += 1
+                        members_count += 1
                     await delete_db("notifies", "id", counter)
 
                 counter += 1
