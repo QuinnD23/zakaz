@@ -52,17 +52,17 @@ async def ping(dp: Dispatcher):
                         try:
                             member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
                         except:
-                            members_count += 1
+                            counter_members += 1
                             continue
                         try:
                             tele_id = str(await select_db("workers", "worker_name", "tele_id", member_name))
                         except:
-                            members_count += 1
+                            counter_members += 1
                             continue
                         if tele_id != "0":
                             await dp.bot.send_message(tele_id, text)
                         await delete_db("notifiesmembers", "id_member", id_member)
-                        members_count += 1
+                        counter_members += 1
                     await delete_db("notifies", "id", counter)
                 counter += 1
         # Проверка2
@@ -91,17 +91,17 @@ async def ping(dp: Dispatcher):
                         try:
                             member_name = str(await select_db("notifiesmembersweek", "id_member", "member_name", id_member))
                         except:
-                            members_count += 1
+                            counter_members += 1
                             continue
                         try:
                             tele_id = str(await select_db("workers", "worker_name", "tele_id", member_name))
                         except:
-                            members_count += 1
+                            counter_members += 1
                             continue
                         if tele_id != "0":
                             await dp.bot.send_message(tele_id, text)
                         await delete_db("notifiesmembersweek", "id_member", id_member)
-                        members_count += 1
+                        counter_members += 1
                     await delete_db("notifiesweek", "id", counter)
                 counter += 1
         #
