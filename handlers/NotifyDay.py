@@ -161,6 +161,7 @@ async def mess(message: Message):
 
                     id += 1
                     await update_db("notifies", "id", "members_count", id_notify, id)
+                    await update_db("workers", "delete_id", "delete_id", delete_id, -1)
                 else:
                     await message.answer("Неверный формат✖️ Попробуйте еще раз")
             else:
