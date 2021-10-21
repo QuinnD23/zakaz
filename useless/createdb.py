@@ -60,7 +60,9 @@ async def create_db():
                             "admin_name varchar,"
                             "workers_count integer default 0,"
                             "notifies_count integer default 0,"
-                            "edit_notify integer default 0);")
+                            "notifies_week_count integer default 0,"
+                            "edit_notify integer default 0,"
+                            "edit_notify_week integer default 0);")
             except:
                 pass
 
