@@ -55,7 +55,7 @@ async def ping(dp: Dispatcher):
                             members_count += 1
                             continue
                         try:
-                            tele_id = str(await select_db("workers", "member_name", "tele_id", member_name))
+                            tele_id = str(await select_db("workers", "worker_name", "tele_id", member_name))
                         except:
                             members_count += 1
                             continue
@@ -94,7 +94,7 @@ async def ping(dp: Dispatcher):
                             members_count += 1
                             continue
                         try:
-                            tele_id = str(await select_db("workers", "member_name", "tele_id", member_name))
+                            tele_id = str(await select_db("workers", "worker_name", "tele_id", member_name))
                         except:
                             members_count += 1
                             continue
