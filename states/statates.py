@@ -12,14 +12,20 @@ class StateMachine(StatesGroup):
     NotifyTextWeek = State()
     NotifyDateWeek = State()
     NotifyTimeWeek = State()
+    NotifyMembersWeek = State()
 
     NotifyText = State()
     NotifyDate = State()
     NotifyTime = State()
     NotifyMembers = State()
 
+    EditMainChoice = State()
+
     EditChoice = State()
     EditMain = State()
     Text = State()
     Date = State()
     Time = State()
+    MembersChoice = State()
+    MembersAdd = State()
+    MembersRemove = State()

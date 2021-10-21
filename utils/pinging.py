@@ -60,6 +60,7 @@ async def ping(dp: Dispatcher):
                             continue
                         if tele_id != "0":
                             await dp.bot.send_message(tele_id, text)
+                        await delete_db("notifiesmembers", "id_member", id_member)
                         members_count += 1
                     await delete_db("notifies", "id", counter)
 

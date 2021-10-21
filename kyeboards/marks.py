@@ -17,7 +17,7 @@ AdminMenu = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True
 )
-EditMenu = ReplyKeyboardMarkup(
+EditDayMenu = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text="Текст✏️"),
@@ -27,6 +27,48 @@ EditMenu = ReplyKeyboardMarkup(
         ],
         [
             KeyboardButton(text="Время🕐"),
+        ],
+        [
+            KeyboardButton(text="Cотрудники👨"),
+        ],
+        [
+            KeyboardButton(text="Удалить❌"),
+        ],
+        [
+            KeyboardButton(text="Отменить◀️"),
+        ],
+    ],
+    resize_keyboard=True
+)
+
+AddRemoveMenu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Добавить✅"),
+        ],
+        [
+            KeyboardButton(text="Удалить❌"),
+        ],
+        [
+            KeyboardButton(text="Отменить◀️"),
+        ],
+    ],
+    resize_keyboard=True
+)
+
+EditWeekMenu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Текст✏️"),
+        ],
+        [
+            KeyboardButton(text="День недели☀️"),
+        ],
+        [
+            KeyboardButton(text="Время🕐"),
+        ],
+        [
+            KeyboardButton(text="Удалить❌"),
         ],
         [
             KeyboardButton(text="Отменить◀️"),

@@ -19,7 +19,7 @@ from states.statates import StateMachine
 from kyeboards.marks import AdminMenu, MembersMenu
 
 
-@dp.message_handler(state=StateMachine.NotifyText)
+@dp.message_handler(state=StateMachine.NotifyTextWeek)
 async def mess(message: Message):
     # ----- start
     if message.text == "/start":
@@ -33,18 +33,18 @@ async def mess(message: Message):
             await StateMachine.Admin.set()
         # -----
         else:
-            notifies_count = int(await select_db("admin", "code", "notifies_count", code))
+            notifies_week_count = int(await select_db("admin", "code", "notifies_week_count", code))
 
-            id = notifies_count
-            await insert_db("notifies", "id", id)
-            await update_db("notifies", "id", "text", id, message.text)
+            id = notifies_week_count
+            await insert_db("notifiesweek", "id", id)
+            await update_db("notifiesweek", "id", "text", id, message.text)
 
-            await message.answer("🗓 Введите Дату\n"
-                                 "Пример - 15 10 2021", reply_markup=ReplyKeyboardRemove())
-            await StateMachine.NotifyDate.set()
+            await message.answer("☀️ Введите День недели\n"
+                                 "Пример - пн, вт, ср, чт, пт, сб, вс", reply_markup=ReplyKeyboardRemove())
+            await StateMachine.NotifyDateWeek.set()
 
 
-@dp.message_handler(state=StateMachine.NotifyDate)
+@dp.message_handler(state=StateMachine.NotifyDateWeek)
 async def mess(message: Message):
     # ----- start
     if message.text == "/start":
@@ -54,28 +54,32 @@ async def mess(message: Message):
     else:
         check = True
         date = message.text
-        try:
-            date1 = int(re.sub(" ", "", date))
-        except:
-            check = False
 
-        if check:
-            id = int(await select_db("admin", "code", "notifies_count", code))
-            day = str(date.split()[0])
-            await update_db("notifies", "id", "day", id, day)
-            month = str(date.split()[1])
-            await update_db("notifies", "id", "month", id, month)
-            year = str(date.split()[2])
-            await update_db("notifies", "id", "year", id, year)
+        if date == "пн" or date == "вт" or date == "ср" or date == "чт" or date == "пт" or date == "сб" or date == "вс":
+            id = int(await select_db("admin", "code", "notifies_week_count", code))
+            if date == "пн":
+                await update_db("notifiesweek", "id", "named_day", id, "Monday")
+            if date == "вт":
+                await update_db("notifiesweek", "id", "named_day", id, "Tuesday")
+            if date == "ср":
+                await update_db("notifiesweek", "id", "named_day", id, "Wednesday")
+            if date == "чт":
+                await update_db("notifiesweek", "id", "named_day", id, "Thursday")
+            if date == "пт":
+                await update_db("notifiesweek", "id", "named_day", id, "Friday")
+            if date == "сб":
+                await update_db("notifiesweek", "id", "named_day", id, "Saturday")
+            if date == "вс":
+                await update_db("notifiesweek", "id", "named_day", id, "Sunday")
 
             await message.answer("🕐 Введите Время\n"
                                  "Пример - 12 30")
-            await StateMachine.NotifyTime.set()
+            await StateMachine.NotifyTimeWeek.set()
         else:
             await message.answer("Неверный формат✖️ Попробуйте еще раз")
 
 
-@dp.message_handler(state=StateMachine.NotifyTime)
+@dp.message_handler(state=StateMachine.NotifyTimeWeek)
 async def mess(message: Message):
     # ----- start
     if message.text == "/start":
@@ -91,11 +95,11 @@ async def mess(message: Message):
             check = False
 
         if check:
-            id = int(await select_db("admin", "code", "notifies_count", code))
+            id = int(await select_db("admin", "code", "notifies_week_count", code))
             hour = str(date.split()[0])
-            await update_db("notifies", "id", "hour", id, hour)
+            await update_db("notifiesweek", "id", "hour", id, hour)
             min = str(date.split()[1])
-            await update_db("notifies", "id", "min", id, min)
+            await update_db("notifiesweek", "id", "min", id, min)
 
             await message.answer("👨 Выберите сотрудников:")
 
@@ -115,12 +119,12 @@ async def mess(message: Message):
 
             await message.answer("Введите номер сотрудника, которому хотите отправить уведомление:", reply_markup=MembersMenu)
             await message.answer("Когда будут выбраны все сотрудники, нажмите - Стоп⛔️")
-            await StateMachine.NotifyMembers.set()
+            await StateMachine.NotifyMembersWeek.set()
         else:
             await message.answer("Неверный формат✖️ Попробуйте еще раз")
 
 
-@dp.message_handler(state=StateMachine.NotifyMembers)
+@dp.message_handler(state=StateMachine.NotifyMembersWeek)
 async def mess(message: Message):
     # ----- start
     if message.text == "/start":
@@ -131,8 +135,8 @@ async def mess(message: Message):
         if message.text == "Стоп⛔️":
             await message.answer("Уведомление успешно создано⚡️", reply_markup=AdminMenu)
 
-            notifies_count = int(await select_db("admin", "code", "notifies_count", code)) + 1
-            await update_db("admin", "code", "notifies_count", code, notifies_count)
+            notifies_week_count = int(await select_db("admin", "code", "notifies_week_count", code)) + 1
+            await update_db("admin", "code", "notifies_count", code, notifies_week_count)
 
             await StateMachine.Admin.set()
         else:
@@ -149,17 +153,17 @@ async def mess(message: Message):
                 except:
                     check = False
                 if check:
-                    id_notify = int(await select_db("admin", "code", "notifies_count", code))
-                    id_member = str(id_notify) + '#' + str(await select_db("notifies", "id", "members_count", id_notify))
+                    id_notify = int(await select_db("admin", "code", "notifies_week_count", code))
+                    id_member = str(id_notify) + '#' + str(await select_db("notifiesweek", "id", "members_count", id_notify))
 
-                    await insert_db("notifiesmembers", "id_member", id_member)
+                    await insert_db("notifiesmembersweek", "id_member", id_member)
 
-                    await update_db("notifiesmembers", "id_member", "member_name", id_member, member_name)
+                    await update_db("notifiesmembersweek", "id_member", "member_name", id_member, member_name)
 
                     await message.answer(f"✅ {member_name}")
 
-                    members_count = int(await select_db("notifies", "id", "members_count", id_notify)) + 1
-                    await update_db("notifies", "id", "members_count", id_notify, members_count)
+                    members_count = int(await select_db("notifiesweek", "id", "members_count", id_notify)) + 1
+                    await update_db("notifiesweek", "id", "members_count", id_notify, members_count)
 
                     await update_db("workers", "delete_id", "delete_id", delete_id, -1)
                 else:

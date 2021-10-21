@@ -53,6 +53,29 @@ async def mess(message: Message):
         await StateMachine.NotifyChoice.set()
 
     if message.text == "Редактировать уведомление✏️":
+        await message.answer("Выберите тип уведомления:", reply_markup=NotifyMenu)
+        await StateMachine.EditMainChoice.set()
+
+
+@dp.message_handler(state=StateMachine.NotifyChoice)
+async def mess(message: Message):
+
+    # ----- start
+    if message.text == "/start":
+        await message.answer("Приветствую тебя, администратор!", reply_markup=AdminMenu)
+    # -----
+
+    # ----- back
+    if message.text == "Отменить◀️":
+        await message.answer("Возвращаю...", reply_markup=AdminMenu)
+        await StateMachine.Admin.set()
+    # -----
+
+    if message.text == "День недели☀️":
+        await message.answer("Введите Текст уведомления:", reply_markup=ReplyKeyboardRemove())
+        await StateMachine.NotifyTextWeek.set()
+
+    if message.text == "Конкретная дата🌩":
         await message.answer("⚡️Список текущих уведомлений:", reply_markup=BackMenu)
         counter = 0
         delete_id = 1
@@ -68,9 +91,26 @@ async def mess(message: Message):
             day = str(await select_db("notifies", "id", "day", counter))
             hour = str(await select_db("notifies", "id", "hour", counter))
             min = str(await select_db("notifies", "id", "min", counter))
+
+            all_members = ""
+            members_counter = 0
+            members_count = int(await select_db("notifies", "id", "members_count", counter))
+            while members_count < members_counter:
+                id = str(counter) + '#' + str(members_counter)
+                try:
+                    member_name = str(await select_db("notifiesmembers", "id", "member_name", id))
+                except:
+                    members_counter += 1
+                    continue
+                all_members = all_members + member_name + ", "
+                members_counter += 1
+
+            all_members = all_members[:-2]
+
             await message.answer(f"{delete_id}💥{text}\n"
                                  f"Дата - {day}.{month}.{year}\n"
-                                 f"Время - {hour}:{min}")
+                                 f"Время - {hour}:{min}\n"
+                                 f"Сотрудники - {all_members}")
             await update_db("notifies", "id", "delete_id", counter, delete_id)
             counter += 1
             delete_id += 1
