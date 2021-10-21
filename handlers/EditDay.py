@@ -252,7 +252,7 @@ async def mess(message: Message):
                     check = False
                 if check:
                     id_notify = int(await select_db("admin", "code", "edit_notify", code))
-                    id_member = str(id_notify) + '#' + str(await select_db("notifies", "id", "members_count", id_notify))
+                    id_member = str(id_notify) + '#' + str(await select_db("notifies", "delete_id", "members_count", id_notify))
 
                     await insert_db("notifiesmembers", "id_member", id_member)
 
@@ -260,8 +260,8 @@ async def mess(message: Message):
 
                     await message.answer(f"✅ {member_name}")
 
-                    members_count = int(await select_db("notifies", "id", "members_count", id_notify)) + 1
-                    await update_db("notifies", "id", "members_count", id_notify, members_count)
+                    members_count = int(await select_db("notifies", "delete_id", "members_count", id_notify)) + 1
+                    await update_db("notifies", "delete_id", "members_count", id_notify, members_count)
 
                     await update_db("workers", "delete_id", "delete_id", delete_id, -1)
                 else:
