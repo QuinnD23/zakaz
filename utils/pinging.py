@@ -23,6 +23,7 @@ async def ping(dp: Dispatcher):
         now_year = str(now.split()[2])
         now_hour = str(now.split()[3])
         now_min = str(now.split()[4])
+        now_named_day = str(datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3))).strftime("%A"))
         # Проверка
         check = True
         try:
@@ -63,7 +64,45 @@ async def ping(dp: Dispatcher):
                         await delete_db("notifiesmembers", "id_member", id_member)
                         members_count += 1
                     await delete_db("notifies", "id", counter)
+                counter += 1
+        # Проверка2
+        check = True
+        try:
+            notifies_week_count = int(await select_db("admin", "code", "notifies_week_count", code))
+        except:
+            check = False
+        if check:
+            counter = 0
+            while counter < notifies_week_count:
+                try:
+                    text = str(await select_db("notifiesweek", "id", "text", counter))
+                except:
+                    counter += 1
+                    continue
+                named_day = str(await select_db("notifiesweek", "id", "named_day", counter))
+                hour = str(await select_db("notifiesweek", "id", "hour", counter))
+                min = str(await select_db("notifiesweek", "id", "min", counter))
 
+                if now_named_day == named_day and now_hour == hour and now_min == min:
+                    counter_members = 0
+                    members_count = int(await select_db("notifiesweek", "id", "members_count", counter))
+                    while counter_members < members_count:
+                        id_member = str(counter) + '#' + str(counter_members)
+                        try:
+                            member_name = str(await select_db("notifiesmembersweek", "id_member", "member_name", id_member))
+                        except:
+                            members_count += 1
+                            continue
+                        try:
+                            tele_id = str(await select_db("workers", "member_name", "tele_id", member_name))
+                        except:
+                            members_count += 1
+                            continue
+                        if tele_id != "0":
+                            await dp.bot.send_message(tele_id, text)
+                        await delete_db("notifiesmembersweek", "id_member", id_member)
+                        members_count += 1
+                    await delete_db("notifiesweek", "id", counter)
                 counter += 1
         #
         await asyncio.sleep(50)

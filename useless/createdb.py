@@ -31,9 +31,27 @@ async def create_db():
                 pass
             # -----
             try:
+                cur.execute("CREATE TABLE notifiesweek (id integer default 0,"
+                            "text text default 0,"
+                            "named_day varchar default 0,"
+                            "hour varchar default 0,"
+                            "min varchar default 0,"
+                            "members_count integer default 0,"
+                            "delete_id integer default 0);")
+            except:
+                pass
+            # -----
+            try:
                 cur.execute("CREATE TABLE notifiesmembers (id_member varchar default 0,"
                             "member_name varchar default 0,"
-                            "delete_id integer default 0);")
+                            "delete_id varchar default 0);")
+            except:
+                pass
+            # -----
+            try:
+                cur.execute("CREATE TABLE notifiesmembersweek (id_member varchar default 0,"
+                            "member_name varchar default 0,"
+                            "delete_id varchar default 0);")
             except:
                 pass
             # -----

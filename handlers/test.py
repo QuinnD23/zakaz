@@ -1,6 +1,7 @@
 import datetime
 
-text = 'Danil'
-res = text.find("u")
-if res == -1:
-    print(text)
+now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3))).strftime("%A")
+
+text = "Thursday"
+if text == now:
+    print(now)
