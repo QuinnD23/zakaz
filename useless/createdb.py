@@ -31,8 +31,7 @@ async def create_db():
                 pass
             # -----
             try:
-                cur.execute("CREATE TABLE notifiesmembers (id integer default 0,"
-                            "member_id varchar default 0,"
+                cur.execute("CREATE TABLE notifiesmembers (id_member varchar default 0,"
                             "member_name varchar default 0,"
                             "delete_id integer default 0);")
             except:
