@@ -131,7 +131,7 @@ async def mess(message: Message):
         if message.text == "Стоп⛔️":
             await message.answer("Уведомление успешно создано⚡️", reply_markup=AdminMenu)
 
-            notifies_count = id + 1
+            notifies_count = int(await select_db("admin", "code", "notifies_count", code)) + 1
             await update_db("admin", "code", "notifies_count", code, notifies_count)
 
             await StateMachine.Admin.set()
@@ -153,11 +153,11 @@ async def mess(message: Message):
                     id_notify = int(await select_db("admin", "code", "notifies_count", code))
                     id = int(await select_db("notifies", "id", "members_count", id_notify))
                     await insert_db("notifiesmembers", "id", id)
-                    
+
                     await update_db("notifiesmembers", "id", "member_name", id, member_name)
                     await update_db("notifiesmembers", "id", "member_id", id, member_id)
 
-                    await message.answer(f"✅ @{member_name}")
+                    await message.answer(f"✅ {member_name}")
 
                     id += 1
                     await update_db("notifies", "id", "members_count", id_notify, id)
