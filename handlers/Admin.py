@@ -96,9 +96,9 @@ async def mess(message: Message):
             members_counter = 0
             members_count = int(await select_db("notifies", "id", "members_count", counter))
             while members_counter < members_count:
-                id = str(counter) + '#' + str(members_counter)
+                id_member = str(counter) + '#' + str(members_counter)
                 try:
-                    member_name = str(await select_db("notifiesmembers", "id", "member_name", id))
+                    member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
                 except:
                     members_counter += 1
                     continue
