@@ -57,7 +57,7 @@ async def mess(message: Message):
         await StateMachine.EditMainChoice.set()
 
 
-@dp.message_handler(state=StateMachine.NotifyChoice)
+@dp.message_handler(state=StateMachine.EditMainChoice)
 async def mess(message: Message):
 
     # ----- start
