@@ -48,7 +48,11 @@ async def ping(dp: Dispatcher):
                     members_count = int(await select_db("notifies", "id", "members_count", counter))
                     while counter_members < members_count:
                         id_member = str(counter) + '#' + str(counter_members)
-                        member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
+                        try:
+                            member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
+                        except:
+                            members_count += 1
+                            continue
                         try:
                             tele_id = str(await select_db("workers", "member_name", "tele_id", member_name))
                         except:
