@@ -82,7 +82,7 @@ async def mess(message: Message):
             except:
                 counter += 1
                 continue
-            named_day = str(await select_db("notifiesweek", "delete_id", "named_day", delete_id))
+            named_day = str(await select_db("notifiesweek", "id", "named_day", counter))
             if named_day == "Monday":
                 named_day = "пн"
             if named_day == "Tuesday":
@@ -99,8 +99,8 @@ async def mess(message: Message):
                 named_day = "вс"
             else:
                 named_day = ""
-            hour = str(await select_db("notifiesweek", "delete_id", "hour", delete_id))
-            min = str(await select_db("notifiesweek", "delete_id", "min", delete_id))
+            hour = str(await select_db("notifiesweek", "id", "hour", counter))
+            min = str(await select_db("notifiesweek", "id", "min", counter))
 
             all_members = ""
             members_counter = 0
