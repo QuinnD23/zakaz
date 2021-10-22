@@ -187,7 +187,7 @@ async def mess(message: Message):
             await message.answer(f"{delete_id_member}. {member_name}")
             delete_id_member_table = str(delete_id) + '#' + str(delete_id_member)
             await update_db("notifiesmembers", "id_member", "delete_id", id_member, delete_id_member_table)
-            delete_id_member = 1
+            delete_id_member += 1
             counter_members += 1
 
         await message.answer("Введите номер сотрудника, которому хотите удалить❌:", reply_markup=MembersMenu)
