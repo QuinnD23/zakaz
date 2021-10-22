@@ -109,11 +109,11 @@ async def mess(message: Message):
     # -----
 
     if message.text == "Текст✏️":
-        await message.answer("Введите новый Текст✏️", reply_markup=ReplyKeyboardRemove())
+        await message.answer("✏️ Введите новый Текст", reply_markup=ReplyKeyboardRemove())
         await StateMachine.TextWeek.set()
 
     if message.text == "День недели☀️":
-        await message.answer("🗓 Введите новый День недели\n"
+        await message.answer("☀️ Введите новый День недели\n"
                              "Пример - пн, вт, ср, чт, пт, сб, вс", reply_markup=ReplyKeyboardRemove())
         await StateMachine.DateWeek.set()
 
@@ -443,7 +443,7 @@ async def mess(message: Message):
         date = message.text
 
         if date == "пн" or date == "вт" or date == "ср" or date == "чт" or date == "пт" or date == "сб" or date == "вс":
-            delete_id = int(await select_db("admin", "code", "edit_notify", code))
+            delete_id = int(await select_db("admin", "code", "edit_notify_week", code))
             if date == "пн":
                 await update_db("notifiesweek", "delete_id", "named_day", delete_id, "Monday")
             if date == "вт":
@@ -486,7 +486,6 @@ async def mess(message: Message):
             await StateMachine.EditMainWeek.set()
         else:
             await message.answer("Неверный формат✖️ Попробуйте еще раз")
-
 
 
 @dp.message_handler(state=StateMachine.TimeWeek)

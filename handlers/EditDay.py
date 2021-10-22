@@ -97,7 +97,7 @@ async def mess(message: Message):
     # -----
 
     if message.text == "Текст✏️":
-        await message.answer("Введите новый Текст✏️", reply_markup=ReplyKeyboardRemove())
+        await message.answer("✏️ Введите новый Текст", reply_markup=ReplyKeyboardRemove())
         await StateMachine.Text.set()
 
     if message.text == "Дата🗓":
