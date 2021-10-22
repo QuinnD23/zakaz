@@ -367,6 +367,21 @@ async def mess(message: Message):
         delete_id = int(await select_db("admin", "code", "edit_notify", code))
         await update_db("notifies", "delete_id", "text", delete_id, message.text)
 
+        all_members = ""
+        members_counter = 0
+        members_count = int(await select_db("notifies", "delete_id", "members_count", delete_id))
+        while members_counter < members_count:
+            id_member = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(members_counter)
+            try:
+                member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
+            except:
+                members_counter += 1
+                continue
+            all_members = all_members + member_name + ", "
+            members_counter += 1
+
+        all_members = all_members[:-2]
+
         text = str(await select_db("notifies", "delete_id", "text", delete_id))
         year = str(await select_db("notifies", "delete_id", "year", delete_id))
         month = str(await select_db("notifies", "delete_id", "month", delete_id))
@@ -377,8 +392,10 @@ async def mess(message: Message):
         await message.answer(f"Уведомление Изменено:\n"
                              f"{delete_id}💥{text}\n"
                              f"Дата - {day}.{month}.{year}\n"
-                             f"Время - {hour}:{min}", reply_markup=EditDayMenu)
+                             f"Время - {hour}:{min}\n"
+                             f"Сотрудники - {all_members}", reply_markup=EditDayMenu)
         await message.answer("Хотите изменить еще что-то?")
+
         await StateMachine.EditMain.set()
 
 
@@ -406,6 +423,21 @@ async def mess(message: Message):
             year = str(date.split()[2])
             await update_db("notifies", "delete_id", "year", delete_id, year)
 
+            all_members = ""
+            members_counter = 0
+            members_count = int(await select_db("notifies", "delete_id", "members_count", delete_id))
+            while members_counter < members_count:
+                id_member = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(members_counter)
+                try:
+                    member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
+                except:
+                    members_counter += 1
+                    continue
+                all_members = all_members + member_name + ", "
+                members_counter += 1
+
+            all_members = all_members[:-2]
+
             text = str(await select_db("notifies", "delete_id", "text", delete_id))
             year = str(await select_db("notifies", "delete_id", "year", delete_id))
             month = str(await select_db("notifies", "delete_id", "month", delete_id))
@@ -416,8 +448,10 @@ async def mess(message: Message):
             await message.answer(f"Уведомление Изменено:\n"
                                  f"{delete_id}💥{text}\n"
                                  f"Дата - {day}.{month}.{year}\n"
-                                 f"Время - {hour}:{min}", reply_markup=EditDayMenu)
+                                 f"Время - {hour}:{min}\n"
+                                 f"Сотрудники - {all_members}", reply_markup=EditDayMenu)
             await message.answer("Хотите изменить еще что-то?")
+
             await StateMachine.EditMain.set()
         else:
             await message.answer("Неверный формат✖️ Попробуйте еще раз")
@@ -445,6 +479,21 @@ async def mess(message: Message):
             min = str(date.split()[1])
             await update_db("notifies", "delete_id", "min", delete_id, min)
 
+            all_members = ""
+            members_counter = 0
+            members_count = int(await select_db("notifies", "delete_id", "members_count", delete_id))
+            while members_counter < members_count:
+                id_member = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(members_counter)
+                try:
+                    member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
+                except:
+                    members_counter += 1
+                    continue
+                all_members = all_members + member_name + ", "
+                members_counter += 1
+
+            all_members = all_members[:-2]
+
             text = str(await select_db("notifies", "delete_id", "text", delete_id))
             year = str(await select_db("notifies", "delete_id", "year", delete_id))
             month = str(await select_db("notifies", "delete_id", "month", delete_id))
@@ -455,8 +504,10 @@ async def mess(message: Message):
             await message.answer(f"Уведомление Изменено:\n"
                                  f"{delete_id}💥{text}\n"
                                  f"Дата - {day}.{month}.{year}\n"
-                                 f"Время - {hour}:{min}", reply_markup=EditDayMenu)
+                                 f"Время - {hour}:{min}\n"
+                                 f"Сотрудники - {all_members}", reply_markup=EditDayMenu)
             await message.answer("Хотите изменить еще что-то?")
+
             await StateMachine.EditMain.set()
         else:
             await message.answer("Неверный формат✖️ Попробуйте еще раз")
