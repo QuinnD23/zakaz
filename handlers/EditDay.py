@@ -272,7 +272,7 @@ async def mess(message: Message):
                     check = False
                 if check:
                     id_notify = int(await select_db("admin", "code", "edit_notify", code))
-                    id_member = str(id_notify-1) + '#' + str(await select_db("notifies", "delete_id", "members_count", id_notify))
+                    id_member = str(await select_db("notifies", "delete_id", "id", id_notify)) + '#' + str(await select_db("notifies", "delete_id", "members_count", id_notify))
 
                     await insert_db("notifiesmembers", "id_member", id_member)
 
@@ -341,7 +341,7 @@ async def mess(message: Message):
                 check = False
 
             if check:
-                delete_id_member = str(delete_id) + '#' + str(delete_id_member)
+                delete_id_member = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(delete_id_member)
                 check = True
                 try:
                     member_name = str(await select_db("notifiesmembers", "delete_id", "member_name", delete_id_member))
