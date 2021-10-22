@@ -72,8 +72,61 @@ async def mess(message: Message):
     # -----
 
     if message.text == "День недели☀️":
-        await message.answer("Введите Текст уведомления:", reply_markup=ReplyKeyboardRemove())
-        await StateMachine.NotifyTextWeek.set()
+        await message.answer("⚡️Список текущих уведомлений:", reply_markup=BackMenu)
+        counter = 0
+        delete_id = 1
+        notifies_count = int(await select_db("admin", "code", "notifies_week_count", code))
+        while counter < notifies_count:
+            try:
+                text = str(await select_db("notifiesweek", "id", "text", counter))
+            except:
+                counter += 1
+                continue
+            named_day = str(await select_db("notifiesweek", "delete_id", "named_day", delete_id))
+            if named_day == "Monday":
+                named_day = "пн"
+            if named_day == "Tuesday":
+                named_day = "вт"
+            if named_day == "Wednesday":
+                named_day = "ср"
+            if named_day == "Thursday":
+                named_day = "чт"
+            if named_day == "Friday":
+                named_day = "пт"
+            if named_day == "Saturday":
+                named_day = "сб"
+            if named_day == "Sunday":
+                named_day = "вс"
+            else:
+                named_day = ""
+            hour = str(await select_db("notifiesweek", "delete_id", "hour", delete_id))
+            min = str(await select_db("notifiesweek", "delete_id", "min", delete_id))
+
+            all_members = ""
+            members_counter = 0
+            members_count = int(await select_db("notifiesweek", "id", "members_count", counter))
+            while members_counter < members_count:
+                id_member = str(counter) + '#' + str(members_counter)
+                try:
+                    member_name = str(await select_db("notifiesmembersweek", "id_member", "member_name", id_member))
+                except:
+                    members_counter += 1
+                    continue
+                all_members = all_members + member_name + ", "
+                members_counter += 1
+
+            all_members = all_members[:-2]
+
+            await message.answer(f"{delete_id}💥{text}\n"
+                                 f"День недели - {named_day}\n"
+                                 f"Время - {hour}:{min}\n"
+                                 f"Сотрудники - {all_members}")
+            await update_db("notifiesweek", "id", "delete_id", counter, delete_id)
+            counter += 1
+            delete_id += 1
+
+        await message.answer("Введите номер уведомления, которое хотите изменить:")
+        await StateMachine.EditChoiceWeek.set()
 
     if message.text == "Конкретная дата🌩":
         await message.answer("⚡️Список текущих уведомлений:", reply_markup=BackMenu)
