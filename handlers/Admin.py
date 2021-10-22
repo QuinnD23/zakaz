@@ -97,8 +97,6 @@ async def mess(message: Message):
                 named_day = "сб"
             if named_day == "Sunday":
                 named_day = "вс"
-            else:
-                named_day = ""
             hour = str(await select_db("notifiesweek", "id", "hour", counter))
             min = str(await select_db("notifiesweek", "id", "min", counter))
 
