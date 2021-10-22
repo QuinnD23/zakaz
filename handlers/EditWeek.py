@@ -218,7 +218,7 @@ async def mess(message: Message):
                 continue
 
             await message.answer(f"{delete_id_member}. {member_name}")
-            delete_id_member_table = str(delete_id) + '#' + str(delete_id_member)
+            delete_id_member_table = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(delete_id_member)
             await update_db("notifiesmembersweek", "id_member", "delete_id", id_member, delete_id_member_table)
             delete_id_member += 1
             counter_members += 1
