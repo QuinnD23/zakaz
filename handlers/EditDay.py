@@ -114,6 +114,26 @@ async def mess(message: Message):
         await message.answer("👨 Выберите действие:", reply_markup=AddRemoveMenu)
         await StateMachine.MembersChoice.set()
 
+    if message.text == "Удалить❌":
+        delete_id = int(await select_db("admin", "code", "edit_notify", code))
+
+        members_counter = 0
+        members_count = int(await select_db("notifies", "delete_id", "members_count", delete_id))
+        while members_counter < members_count:
+            id_member = str(await select_db("notifies", "delete_id", "id", delete_id)) + '#' + str(members_counter)
+            try:
+                member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
+            except:
+                members_counter += 1
+                continue
+            await delete_db("notifiesmembers", "id_member", id_member)
+            members_counter += 1
+
+        await delete_db("notifies", "delete_id", delete_id)
+
+        await message.answer("❌ Уведомление удалено", reply_markup=AdminMenu)
+        await StateMachine.Admin.set()
+
 
 @dp.message_handler(state=StateMachine.MembersChoice)
 async def mess(message: Message):

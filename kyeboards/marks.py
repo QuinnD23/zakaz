@@ -21,20 +21,14 @@ EditDayMenu = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text="Текст✏️"),
-        ],
-        [
             KeyboardButton(text="Дата🗓"),
         ],
         [
             KeyboardButton(text="Время🕐"),
-        ],
-        [
             KeyboardButton(text="Cотрудники👨"),
         ],
         [
             KeyboardButton(text="Удалить❌"),
-        ],
-        [
             KeyboardButton(text="Отменить◀️"),
         ],
     ],
@@ -60,17 +54,14 @@ EditWeekMenu = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text="Текст✏️"),
-        ],
-        [
             KeyboardButton(text="День недели☀️"),
         ],
         [
             KeyboardButton(text="Время🕐"),
+            KeyboardButton(text="Cотрудники👨"),
         ],
         [
             KeyboardButton(text="Удалить❌"),
-        ],
-        [
             KeyboardButton(text="Отменить◀️"),
         ],
     ],

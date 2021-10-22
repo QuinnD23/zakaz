@@ -41,6 +41,7 @@ async def mess(message: Message):
             try:
                 worker_name = str(await select_db("workers", "id", "worker_name", counter))
             except:
+                counter += 1
                 continue
             worker_name = worker_name[1:]
             if user_name == worker_name:

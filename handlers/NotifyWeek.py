@@ -52,7 +52,6 @@ async def mess(message: Message):
         await StateMachine.Admin.set()
     # -----
     else:
-        check = True
         date = message.text
 
         if date == "пн" or date == "вт" or date == "ср" or date == "чт" or date == "пт" or date == "сб" or date == "вс":

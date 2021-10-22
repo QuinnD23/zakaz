@@ -29,3 +29,12 @@ class StateMachine(StatesGroup):
     MembersChoice = State()
     MembersAdd = State()
     MembersRemove = State()
+
+    EditChoiceWeek = State()
+    EditMainWeek = State()
+    TextWeek = State()
+    DateWeek = State()
+    TimeWeek = State()
+    MembersChoiceWeek = State()
+    MembersAddWeek = State()
+    MembersRemoveWeek = State()
