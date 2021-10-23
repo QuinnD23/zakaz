@@ -10,60 +10,51 @@ async def create_db():
         with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
             # -----
             try:
-                cur.execute("CREATE TABLE workers (id integer default 0,"
-                            "tele_id varchar default 0,"
-                            "worker_name varchar default 0,"
-                            "delete_id integer default 0);")
-            except:
-                pass
-            # -----
-            try:
-                cur.execute("CREATE TABLE notifies (id integer default 0,"
-                            "text text default 0,"
-                            "year varchar default 0,"
-                            "month varchar default 0,"
-                            "day varchar default 0,"
-                            "hour varchar default 0,"
-                            "min varchar default 0,"
-                            "members_count integer default 0,"
-                            "delete_id integer default 0);")
-            except:
-                pass
-            # -----
-            try:
-                cur.execute("CREATE TABLE notifiesweek (id integer default 0,"
-                            "text text default 0,"
-                            "named_day varchar default 0,"
-                            "hour varchar default 0,"
-                            "min varchar default 0,"
-                            "members_count integer default 0,"
-                            "delete_id integer default 0);")
-            except:
-                pass
-            # -----
-            try:
-                cur.execute("CREATE TABLE notifiesmembers (id_member varchar default 0,"
-                            "member_name varchar default 0,"
-                            "delete_id varchar default 0);")
-            except:
-                pass
-            # -----
-            try:
-                cur.execute("CREATE TABLE notifiesmembersweek (id_member varchar default 0,"
-                            "member_name varchar default 0,"
-                            "delete_id varchar default 0);")
-            except:
-                pass
-            # -----
-            try:
                 cur.execute("CREATE TABLE admin (code varchar,"
                             "admin_name varchar,"
-                            "workers_count integer default 0,"
-                            "notifies_count integer default 0,"
-                            "notifies_week_count integer default 0,"
-                            "edit_notify integer default 0,"
-                            "edit_notify_week integer default 0);")
+                            "admin_id varchar,"
+                            "text text,"
+                            "tele_id varchar);")
             except:
                 pass
+            # -----
+            try:
+                cur.execute("CREATE TABLE users (user_id varchar primary key,"
+                            "user_name varchar,"
+                            "name varchar,"
+                            "number varchar,"
+                            "places_count integer,"
+                            "autos_count integer,"
+                            "orders_count integer);")
+            except:
+                pass
+            # -----
+            try:
+                cur.execute("CREATE TABLE autos (id varchar,"
+                            "auto varchar,"
+                            "vin varchar);")
+            except:
+                pass
+            # -----
+            try:
+                cur.execute("CREATE TABLE places (id varchar,"
+                            "place varchar);")
+            except:
+                pass
+            # -----
+            try:
+                cur.execute("CREATE TABLE orders (id varchar primary key,"
+                            "auto varchar,"
+                            "vin varchar,"
+                            "year varchar,"
+                            "photo_tre varchar,"
+                            "photo_mar varchar,"
+                            "dime_tre integer,"
+                            "srok_tre varchar,"
+                            "place varchar,"
+                            "bonus varchar);")
+            except:
+                pass
+            # -----
 
     conn.close()

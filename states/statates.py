@@ -2,39 +2,31 @@ from aiogram.dispatcher.filters.state import StatesGroup, State
 
 
 class StateMachine(StatesGroup):
+    StartName = State()
+    StartNumber = State()
+    StartAuto = State()
+    StartVin = State()
+    StartYear = State()
+    StartPlace = State()
+    Start = State()
+
+    AutoChoice = State()
+    AddAuto = State()
+    AddVin = State()
+    AddYear = State()
+
+    PhotoTre = State()
+    PhotoMar = State()
+
+    DimeTre = State()
+    SrokTre = State()
+
+    PlaceChoice = State()
+    AddPlace = State()
+
+    Bonus = State()
+
     Admin = State()
-
-    Add = State()
-    Delete = State()
-
-    NotifyChoice = State()
-
-    NotifyTextWeek = State()
-    NotifyDateWeek = State()
-    NotifyTimeWeek = State()
-    NotifyMembersWeek = State()
-
-    NotifyText = State()
-    NotifyDate = State()
-    NotifyTime = State()
-    NotifyMembers = State()
-
-    EditMainChoice = State()
-
-    EditChoice = State()
-    EditMain = State()
-    Text = State()
-    Date = State()
-    Time = State()
-    MembersChoice = State()
-    MembersAdd = State()
-    MembersRemove = State()
-
-    EditChoiceWeek = State()
-    EditMainWeek = State()
-    TextWeek = State()
-    DateWeek = State()
-    TimeWeek = State()
-    MembersChoiceWeek = State()
-    MembersAddWeek = State()
-    MembersRemoveWeek = State()
+    Answer = State()
+    AnswerText = State()
+    AcceptText = State()

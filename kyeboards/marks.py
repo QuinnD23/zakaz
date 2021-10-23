@@ -1,68 +1,21 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
+StartMenu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Новый заказ🛠"),
+        ],
+        [
+            KeyboardButton(text="Информация📖"),
+        ],
+    ],
+    resize_keyboard=True
+)
+
 AdminMenu = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Добавить сотрудника✅"),
-        ],
-        [
-            KeyboardButton(text="Удалить сотрудника❌"),
-        ],
-        [
-            KeyboardButton(text="Создать уведомление⚡️"),
-        ],
-        [
-            KeyboardButton(text="Редактировать уведомление✏️"),
-        ],
-    ],
-    resize_keyboard=True
-)
-EditDayMenu = ReplyKeyboardMarkup(
-    keyboard=[
-        [
-            KeyboardButton(text="Текст✏️"),
-            KeyboardButton(text="Дата🗓"),
-        ],
-        [
-            KeyboardButton(text="Время🕐"),
-            KeyboardButton(text="Cотрудники👨"),
-        ],
-        [
-            KeyboardButton(text="Удалить❌"),
-            KeyboardButton(text="Отменить◀️"),
-        ],
-    ],
-    resize_keyboard=True
-)
-
-AddRemoveMenu = ReplyKeyboardMarkup(
-    keyboard=[
-        [
-            KeyboardButton(text="Добавить✅"),
-        ],
-        [
-            KeyboardButton(text="Удалить❌"),
-        ],
-        [
-            KeyboardButton(text="Отменить◀️"),
-        ],
-    ],
-    resize_keyboard=True
-)
-
-EditWeekMenu = ReplyKeyboardMarkup(
-    keyboard=[
-        [
-            KeyboardButton(text="Текст✏️"),
-            KeyboardButton(text="День недели☀️"),
-        ],
-        [
-            KeyboardButton(text="Время🕐"),
-            KeyboardButton(text="Cотрудники👨"),
-        ],
-        [
-            KeyboardButton(text="Удалить❌"),
-            KeyboardButton(text="Отменить◀️"),
+            KeyboardButton(text="Ответить💥"),
         ],
     ],
     resize_keyboard=True
@@ -77,13 +30,34 @@ BackMenu = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-NotifyMenu = ReplyKeyboardMarkup(
+AcceptMenu = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="День недели☀️"),
+            KeyboardButton(text="Да✅"),
         ],
         [
-            KeyboardButton(text="Конкретная дата🌩"),
+            KeyboardButton(text="Нет❌"),
+        ],
+    ],
+    resize_keyboard=True
+)
+
+AnswerMenu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Заказать🔥"),
+        ],
+        [
+            KeyboardButton(text="Позже🕐"),
+        ],
+    ],
+    resize_keyboard=True
+)
+
+ChoiceAutoMenu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Добавить авто➕"),
         ],
         [
             KeyboardButton(text="Отменить◀️"),
@@ -91,11 +65,22 @@ NotifyMenu = ReplyKeyboardMarkup(
     ],
     resize_keyboard=True
 )
-MembersMenu = ReplyKeyboardMarkup(
+
+ChoicePlaceMenu = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Стоп⛔️"),
+            KeyboardButton(text="Добавить район➕"),
         ],
     ],
     resize_keyboard=True
 )
+
+BonusMenu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Нет скидки❌"),
+        ],
+    ],
+    resize_keyboard=True
+)
+
