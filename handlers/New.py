@@ -12,7 +12,7 @@ from handlers.db_commands import insert_db, update_db, select_db, delete_db
 from states.statates import StateMachine
 
 # marks
-from kyeboards.marks import StartMenu, ChoicePlaceMenu, BonusMenu, StartLimitMenu
+from kyeboards.marks import StartMenu, ChoicePlaceMenu, BonusMenu, AnswerMenu
 
 
 @dp.message_handler(state=StateMachine.AutoChoice)
@@ -22,7 +22,7 @@ async def mess(message: Message):
 
     # ----- start
     if message.text == "/start":
-        await message.answer(f"Приветствую, f{user_name}")
+        await message.answer(f"Приветствую, {user_name}")
         await message.answer("🛠Компания RST\n"
                              "Производит ремонт и замену лобовых стекол на все марки автомобилей\n"
                              "⚡️Качественно, быстро и с гарантией", reply_markup=StartMenu)
@@ -75,7 +75,7 @@ async def mess(message: Message):
 
     # ----- start
     if message.text == "/start":
-        await message.answer(f"Приветствую, f{user_name}")
+        await message.answer(f"Приветствую, {user_name}")
         await message.answer("🛠Компания RST\n"
                              "Производит ремонт и замену лобовых стекол на все марки автомобилей\n"
                              "⚡️Качественно, быстро и с гарантией", reply_markup=StartMenu)
@@ -106,7 +106,7 @@ async def mess(message: Message):
 
     # ----- start
     if message.text == "/start":
-        await message.answer(f"Приветствую, f{user_name}")
+        await message.answer(f"Приветствую, {user_name}")
         await message.answer("🛠Компания RST\n"
                              "Производит ремонт и замену лобовых стекол на все марки автомобилей\n"
                              "⚡️Качественно, быстро и с гарантией", reply_markup=StartMenu)
@@ -135,7 +135,7 @@ async def mess(message: Message):
 
     # ----- start
     if message.text == "/start":
-        await message.answer(f"Приветствую, f{user_name}")
+        await message.answer(f"Приветствую, {user_name}")
         await message.answer("🛠Компания RST\n"
                              "Производит ремонт и замену лобовых стекол на все марки автомобилей\n"
                              "⚡️Качественно, быстро и с гарантией", reply_markup=StartMenu)
@@ -164,7 +164,7 @@ async def mess(message: Message):
 
     # ----- start
     if message.text == "/start":
-        await message.answer(f"Приветствую, f{user_name}")
+        await message.answer(f"Приветствую, {user_name}")
         await message.answer("🛠Компания RST\n"
                              "Производит ремонт и замену лобовых стекол на все марки автомобилей\n"
                              "⚡️Качественно, быстро и с гарантией", reply_markup=StartMenu)
@@ -195,7 +195,7 @@ async def mess(message: Message):
 
     # ----- start
     if message.text == "/start":
-        await message.answer(f"Приветствую, f{user_name}")
+        await message.answer(f"Приветствую, {user_name}")
         await message.answer("🛠Компания RST\n"
                              "Производит ремонт и замену лобовых стекол на все марки автомобилей\n"
                              "⚡️Качественно, быстро и с гарантией", reply_markup=StartMenu)
@@ -230,7 +230,7 @@ async def mess(message: Message):
 
     # ----- start
     if message.text == "/start":
-        await message.answer(f"Приветствую, f{user_name}")
+        await message.answer(f"Приветствую, {user_name}")
         await message.answer("🛠Компания RST\n"
                              "Производит ремонт и замену лобовых стекол на все марки автомобилей\n"
                              "⚡️Качественно, быстро и с гарантией", reply_markup=StartMenu)
@@ -275,7 +275,7 @@ async def mess(message: Message):
 
     # ----- start
     if message.text == "/start":
-        await message.answer(f"Приветствую, f{user_name}")
+        await message.answer(f"Приветствую, {user_name}")
         await message.answer("🛠Компания RST\n"
                              "Производит ремонт и замену лобовых стекол на все марки автомобилей\n"
                              "⚡️Качественно, быстро и с гарантией", reply_markup=StartMenu)
@@ -308,7 +308,7 @@ async def mess(message: Message):
 
     # ----- start
     if message.text == "/start":
-        await message.answer(f"Приветствую, f{user_name}")
+        await message.answer(f"Приветствую, {user_name}")
         await message.answer("🛠Компания RST\n"
                              "Производит ремонт и замену лобовых стекол на все марки автомобилей\n"
                              "⚡️Качественно, быстро и с гарантией", reply_markup=StartMenu)
@@ -355,6 +355,8 @@ async def mess(message: Message):
         orders_count = int(await select_db("users", "user_id", "orders_count", user_id)) + 1
         await update_db("users", "user_id", "orders_count", user_id, orders_count)
 
+        await update_db("users", "user_id", "last_order", user_id, order_id)
+
         await message.answer("Закакз успешно создан🛠\n"
-                             "Ожидайте ответа", reply_markup=StartLimitMenu)
-        await StateMachine.Start.set()
+                             "Ожидайте ответа", reply_markup=AnswerMenu)
+        await StateMachine.UserAnswer.set()

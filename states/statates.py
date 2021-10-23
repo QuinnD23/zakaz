@@ -33,3 +33,5 @@ class StateMachine(StatesGroup):
 
     AcceptMyOrders = State()
     NumMyOrders = State()
+
+    UserAnswer = State()

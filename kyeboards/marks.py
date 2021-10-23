@@ -15,18 +15,6 @@ StartMenu = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
-StartLimitMenu = ReplyKeyboardMarkup(
-    keyboard=[
-        [
-            KeyboardButton(text="Мои заказы📚"),
-        ],
-        [
-            KeyboardButton(text="Информация📖"),
-        ],
-    ],
-    resize_keyboard=True
-)
-
 MyOrdersMenu = ReplyKeyboardMarkup(
     keyboard=[
         [

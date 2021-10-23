@@ -95,7 +95,7 @@ async def mess(message: Message):
             text = message.text
             await update_db("admin", "code", "text", code, text)
             await message.answer(f"✍️Текст:\n"
-                                 f"{text}"
+                                 f"'{text}'\n"
                                  f"✅Вы уверены, что хотите отправить этот текст?", reply_markup=AcceptMenu)
             await StateMachine.AcceptText.set()
 
@@ -123,7 +123,7 @@ async def mess(message: Message):
 
         await update_db("users", "user_id", "now_order", tele_id, now_order)
 
-        dp.bot.send_message(tele_id, text, reply_markup=AnswerMenu)
+        dp.bot.send_message(tele_id, text)
 
         await message.answer("Ответ отправлен заказчику", reply_markup=AdminMenu)
         await StateMachine.Admin.set()
