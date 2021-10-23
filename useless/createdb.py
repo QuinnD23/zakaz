@@ -34,6 +34,7 @@ async def create_db():
             try:
                 cur.execute("CREATE TABLE autos (id varchar,"
                             "auto varchar,"
+                            "year varchar,"
                             "vin varchar);")
             except:
                 pass
@@ -48,8 +49,8 @@ async def create_db():
                 cur.execute("CREATE TABLE orders (id varchar primary key,"
                             "status integer default 0,"
                             "auto varchar,"
-                            "vin varchar,"
                             "year varchar,"
+                            "vin varchar,"
                             "photo_tre varchar,"
                             "photo_mar varchar,"
                             "dime_tre integer,"

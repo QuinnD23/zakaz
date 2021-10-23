@@ -27,7 +27,7 @@ async def mess(message: Message):
     # -----
 
     if message.text == "Ответить💥":
-        await message.answer("💥Введите ID заказа:"
+        await message.answer("💥Введите ID заказа:\n"
                              "Пример - 1$132224974", reply_markup=BackMenu)
         await StateMachine.Answer.set()
 
