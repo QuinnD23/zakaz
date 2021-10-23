@@ -123,7 +123,7 @@ async def mess(message: Message):
 
         await update_db("users", "user_id", "now_order", tele_id, now_order)
 
-        dp.bot.send_message(tele_id, text)
+        await dp.bot.send_message(tele_id, text)
 
         await message.answer("Ответ отправлен заказчику", reply_markup=AdminMenu)
         await StateMachine.Admin.set()
