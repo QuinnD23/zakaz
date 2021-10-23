@@ -57,12 +57,9 @@ async def mess(message: Message):
                 check = False
             if check:
                 await update_db("admin", "code", "now_order", code, id)
-                counter = 0
-                while id[counter] != '$':
-                    counter += 1
-                    id = id[counter:]
-                counter += 1
-                id = id[counter:]
+                while id[0] != '$':
+                    id = id[1:]
+                id = id[1:]
                 check = True
                 try:
                     user_name_test = await select_db("users", "user_id", "user_name", id)
