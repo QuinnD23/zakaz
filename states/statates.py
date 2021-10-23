@@ -30,3 +30,6 @@ class StateMachine(StatesGroup):
     Answer = State()
     AnswerText = State()
     AcceptText = State()
+
+    AcceptMyOrders = State()
+    NumMyOrders = State()

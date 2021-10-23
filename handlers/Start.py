@@ -13,7 +13,7 @@ from handlers.db_commands import insert_db, update_db, select_db, delete_db
 from states.statates import StateMachine
 
 # marks
-from kyeboards.marks import StartMenu, ChoiceAutoMenu, AdminMenu
+from kyeboards.marks import StartMenu, ChoiceAutoMenu, AdminMenu, MyOrdersMenu
 
 
 @dp.message_handler(Command("start"))
@@ -236,6 +236,35 @@ async def mess(message: Message):
 
         await message.answer("⚡️Отправьте номер нужного автомобиля или добавьте новый", reply_markup=ChoiceAutoMenu)
         await StateMachine.AutoChoice.set()
+
+        if message.text == "Мои заказы📚":
+            orders_count = await select_db("users", "user_id", "orders_count", user_id)
+            counter = 1
+            delete_id = 1
+            while counter < orders_count:
+                id = str(counter) + '$' + user_id
+                try:
+                    status = int(await select_db("orders", "id", "status", id))
+                except:
+                    counter += 1
+                    continue
+                if status == 0:
+                    auto = str(await select_db("orders", "id", "auto", id))
+                    year = str(await select_db("orders", "id", "year", id))
+                    dime_tre = str(await select_db("orders", "id", "dime_tre", id))
+                    srok_tre = str(await select_db("orders", "id", "srok_tre", id))
+                    place = str(await select_db("orders", "id", "place", id))
+                    await message.answer(f"{delete_id}💥Заказ"
+                                         f"🚙 Авто: {auto}\n"
+                                         f"📙 Год выпуска: {year}\n"
+                                         f"🏝 Район: {place}\n"
+                                         f"🔹 Размер трещины: {dime_tre}см\n"
+                                         f"🔹 Срок: {srok_tre}")
+                    await update_db("orders", "id", "delete_id", id, delete_id)
+                    delete_id += 1
+                counter += 1
+            await message.answer("Если вы хотите подтвердить заказ, нажмите 'Подтвердить✅'", reply_markup=MyOrdersMenu)
+            await StateMachine.AcceptMyOrders.set()
 
         if message.text == "Информация📖":
             await message.answer("💥Информация")

@@ -14,6 +14,7 @@ async def create_db():
                             "admin_name varchar,"
                             "admin_id varchar,"
                             "text text,"
+                            "now_order varchar,"
                             "tele_id varchar);")
             except:
                 pass
@@ -21,6 +22,7 @@ async def create_db():
             try:
                 cur.execute("CREATE TABLE users (user_id varchar primary key,"
                             "user_name varchar,"
+                            "now_order varchar,"
                             "name varchar,"
                             "number varchar,"
                             "places_count integer,"
@@ -44,6 +46,7 @@ async def create_db():
             # -----
             try:
                 cur.execute("CREATE TABLE orders (id varchar primary key,"
+                            "status integer default 0,"
                             "auto varchar,"
                             "vin varchar,"
                             "year varchar,"
@@ -52,7 +55,8 @@ async def create_db():
                             "dime_tre integer,"
                             "srok_tre varchar,"
                             "place varchar,"
-                            "bonus varchar);")
+                            "bonus varchar,"
+                            "delete_id integer);")
             except:
                 pass
             # -----
