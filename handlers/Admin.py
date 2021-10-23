@@ -33,6 +33,8 @@ async def mess(message: Message):
         await StateMachine.Answer.set()
 
     if message.text == "Статистика🗒":
+        await dp.bot.send_message(admin_id, "⚡️Статистика\n"
+                                            "Имя пользователя - кол-во заказов")
         users_count = int(await select_db("admin", "code", "users_count", code))
         counter = 1
         num = 1
