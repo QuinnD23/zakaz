@@ -11,9 +11,9 @@ async def create_db():
             # -----
             try:
                 cur.execute("CREATE TABLE admin (code varchar,"
-                            "users_count integer,"
                             "admin_name varchar,"
                             "admin_id varchar,"
+                            "users_count integer default 0,"
                             "text text,"
                             "now_order varchar,"
                             "tele_id varchar);")
