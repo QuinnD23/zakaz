@@ -2,7 +2,4 @@ asyncpg
 aiogram
 environs
 psycopg2
-requests
-bs4
-lxml
 datetime

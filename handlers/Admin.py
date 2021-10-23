@@ -56,6 +56,7 @@ async def mess(message: Message):
             except:
                 check = False
             if check:
+                await update_db("admin", "code", "now_order", code, id)
                 counter = 0
                 while id[counter] != '$':
                     counter += 1
@@ -121,6 +122,9 @@ async def mess(message: Message):
     if message.text == "Да✅":
         tele_id = await select_db("admin", "code", "tele_id", code)
         text = await select_db("admin", "code", "text", code)
+        now_order = await select_db("admin", "code", "now_order", code)
+
+        await update_db("users", "user_id", "now_order", tele_id, now_order)
 
         dp.bot.send_message(tele_id, text, reply_markup=AnswerMenu)
 

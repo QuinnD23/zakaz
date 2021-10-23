@@ -12,7 +12,7 @@ from handlers.db_commands import insert_db, update_db, select_db, delete_db
 from states.statates import StateMachine
 
 # marks
-from kyeboards.marks import StartMenu, ChoicePlaceMenu, BonusMenu
+from kyeboards.marks import StartMenu, ChoicePlaceMenu, BonusMenu, StartLimitMenu
 
 
 @dp.message_handler(state=StateMachine.AutoChoice)
@@ -63,9 +63,9 @@ async def mess(message: Message):
                                              "Загрузите фотографию повреждения:", reply_markup=ReplyKeyboardRemove())
                         await StateMachine.PhotoTre.set()
                     else:
-                        await message.answer("Неверный формат✖️ Попробуйте еще раз")
+                        await message.answer("Неверный формат❌")
                 else:
-                    await message.answer("Неверный формат✖️ Попробуйте еще раз")
+                    await message.answer("Неверный формат❌")
 
 
 @dp.message_handler(state=StateMachine.AddAuto)
@@ -185,7 +185,7 @@ async def mess(message: Message):
                                  "Введите когда была получена трещина:")
             await StateMachine.SrokTre.set()
         else:
-            await message.answer("Неверный формат✖️ Попробуйте еще раз")
+            await message.answer("Неверный формат❌")
 
 
 @dp.message_handler(state=StateMachine.SrokTre)
@@ -263,9 +263,9 @@ async def mess(message: Message):
                                          "Введите код скидки, если имеется:", reply_markup=BonusMenu)
                     await StateMachine.Bonus.set()
                 else:
-                    await message.answer("Неверный формат✖️ Попробуйте еще раз")
+                    await message.answer("Неверный формат❌")
             else:
-                await message.answer("Неверный формат✖️ Попробуйте еще раз")
+                await message.answer("Неверный формат❌")
 
 
 @dp.message_handler(state=StateMachine.AddPlace)
@@ -356,5 +356,5 @@ async def mess(message: Message):
         await update_db("users", "user_id", "orders_count", user_id, orders_count)
 
         await message.answer("Закакз успешно создан🛠\n"
-                             "Ожидайте ответа", reply_markup=StartMenu)
+                             "Ожидайте ответа", reply_markup=StartLimitMenu)
         await StateMachine.Start.set()

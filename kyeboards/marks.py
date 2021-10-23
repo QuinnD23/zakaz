@@ -6,7 +6,34 @@ StartMenu = ReplyKeyboardMarkup(
             KeyboardButton(text="Новый заказ🛠"),
         ],
         [
+            KeyboardButton(text="Мои заказы📚"),
+        ],
+        [
             KeyboardButton(text="Информация📖"),
+        ],
+    ],
+    resize_keyboard=True
+)
+
+StartLimitMenu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Мои заказы📚"),
+        ],
+        [
+            KeyboardButton(text="Информация📖"),
+        ],
+    ],
+    resize_keyboard=True
+)
+
+MyOrdersMenu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Подтвердить✅"),
+        ],
+        [
+            KeyboardButton(text="Отменить◀️"),
         ],
     ],
     resize_keyboard=True
