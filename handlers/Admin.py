@@ -20,6 +20,7 @@ from kyeboards.marks import BackMenu, AdminMenu, AcceptMenu, AnswerMenu
 async def mess(message: Message):
     user_name = str(message.from_user.username)
     user_id = str(message.from_user.id)
+    admin_id = str(await select_db("admin", "code", "admin_id", code))
 
     # ----- start
     if message.text == "/start":
@@ -30,6 +31,23 @@ async def mess(message: Message):
         await message.answer("💥Введите ID заказа:\n"
                              "Пример - 1$132224974", reply_markup=BackMenu)
         await StateMachine.Answer.set()
+
+    if message.text == "Статистика🗒":
+        users_count = int(await select_db("admin", "code", "users_count", code))
+        counter = 1
+        num = 1
+        while counter < users_count:
+            try:
+                user_name = str(await select_db("users", "user_num", "user_name", counter))
+            except:
+                counter += 1
+                continue
+            orders_count = int(await select_db("users", "user_num", "orders_count", counter)) - 1
+            await dp.bot.send_message(admin_id, "⚡️Статистика\n"
+                                                "Имя пользователя - кол-во заказов")
+            await dp.bot.send_message(admin_id, f"{num}. @{user_name} - {orders_count}")
+            num += 1
+            counter += 1
 
 
 @dp.message_handler(state=StateMachine.Answer)

@@ -28,6 +28,10 @@ async def mess(message: Message):
         await message.answer("Приветствую тебя, администратор!", reply_markup=AdminMenu)
         await StateMachine.Admin.set()
     else:
+        users_count = int(await select_db("admin", "code", "users_count", code))
+        users_count += 1
+        await update_db("admin", "code", "users_count", code, users_count)
+
         try:
             await insert_db("users", "user_id", user_id)
         except:
@@ -263,8 +267,11 @@ async def mess(message: Message):
                 await update_db("orders", "id", "delete_id", id, delete_id)
                 delete_id += 1
             counter += 1
-        await message.answer("Если вы хотите подтвердить заказ, нажмите 'Подтвердить✅'", reply_markup=MyOrdersMenu)
-        await StateMachine.AcceptMyOrders.set()
+        if delete_id == 1:
+            await message.answer("У вас нет непринятых заказов")
+        else:
+            await message.answer("Если вы хотите подтвердить заказ, нажмите 'Подтвердить✅'", reply_markup=MyOrdersMenu)
+            await StateMachine.AcceptMyOrders.set()
 
     if message.text == "Информация📖":
         await message.answer("💥Информация")

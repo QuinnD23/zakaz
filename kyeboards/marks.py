@@ -32,6 +32,9 @@ AdminMenu = ReplyKeyboardMarkup(
         [
             KeyboardButton(text="Ответить💥"),
         ],
+        [
+            KeyboardButton(text="Статистика🗒"),
+        ],
     ],
     resize_keyboard=True
 )
