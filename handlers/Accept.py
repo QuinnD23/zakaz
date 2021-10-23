@@ -73,6 +73,7 @@ async def mess(message: Message):
                     await dp.bot.send_message(admin_id, f"{now_order} подтвержден✅")
 
                     await update_db("orders", "id", "status", now_order, 1)
+                    await update_db("orders", "id", "delete_ud", now_order, -1)
 
                     await message.answer("Заказ подтвержден✅", reply_markup=StartMenu)
                     await StateMachine.Start.set()
