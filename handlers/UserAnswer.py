@@ -35,7 +35,7 @@ async def mess(message: Message):
     # -----
 
     if message.text == "Заказать🔥" and last_order == now_order:
-        dp.bot.send_message(admin_id, f"{now_order} подтвержден✅")
+        await dp.bot.send_message(admin_id, f"{now_order} подтвержден✅")
 
         await update_db("orders", "id", "status", now_order, 1)
 
