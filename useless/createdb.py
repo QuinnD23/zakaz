@@ -22,7 +22,7 @@ async def create_db():
             # -----
             try:
                 cur.execute("CREATE TABLE users (user_id varchar primary key,"
-                            "user_num integer serial,"
+                            "user_num serial,"
                             "user_name varchar,"
                             "now_order varchar,"
                             "last_order varchar,"
