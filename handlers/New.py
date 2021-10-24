@@ -315,9 +315,8 @@ async def mess(message: Message):
         await StateMachine.Start.set()
     # -----
     else:
-
         if message.text == "Нет скидки❌":
-            bonus = "Нет бонуса"
+            bonus = "Нет"
         else:
             bonus = message.text
             bonus_from_table = str(await select_db("users", "user_id", "bonus", user_id))
@@ -330,7 +329,7 @@ async def mess(message: Message):
                     await update_db("users", "user_id", "my_bonus_counter", user_id, my_bonus_counter)
                 else:
                     await message.answer("Вы уже использовали этот код")
-                    bonus = "Нет бонуса"
+                    bonus = "Нет"
             else:
                 users_count = int(await select_db("admin", "code", "users_count", code))
                 counter = 1
@@ -350,9 +349,12 @@ async def mess(message: Message):
                             break
                         else:
                             await message.answer("Этот код уже использован")
-                            bonus = "Нет бонуса"
+                            bonus = "Нет"
                             break
                     counter += 1
+        if bonus != "Бонус засчитан" and bonus != "Нет":
+            await message.answer("Такого кода не существует")
+            bonus = "Нет"
 
         order_id = str(await select_db("users", "user_id", "orders_count", user_id)) + "$" + user_id
         await update_db("orders", "id", "bonus", order_id, bonus)
