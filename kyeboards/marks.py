@@ -9,6 +9,9 @@ StartMenu = ReplyKeyboardMarkup(
             KeyboardButton(text="Мои заказы📚"),
         ],
         [
+            KeyboardButton(text="Бонус🔮"),
+        ],
+        [
             KeyboardButton(text="Информация📖"),
         ],
     ],

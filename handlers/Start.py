@@ -40,6 +40,8 @@ async def mess(message: Message):
         await update_db("users", "user_id", "autos_count", user_id, 1)
         await update_db("users", "user_id", "orders_count", user_id, 1)
         await update_db("users", "user_id", "places_count", user_id, 1)
+        bonus = "bonus" + user_id
+        await update_db("users", "user_id", "bonus", user_id, bonus)
 
         await message.answer(f"Приветствую, {user_name}")
         await message.answer("🛠Компания RST\n"
@@ -275,3 +277,11 @@ async def mess(message: Message):
 
     if message.text == "Информация📖":
         await message.answer("💥Информация")
+
+    if message.text == "Бонус🔮":
+        bonus = str(await select_db("users", "user_id", "bonus", user_id))
+        await message.answer("🔮Это ваш персональный код на скидку 10%:")
+        await message.answer(f"{bonus}")
+        await message.answer("⚡️Отправьте этот код при составлении заказа\n"
+                             "- Вы можете использовать этот код 1 раз\n"
+                             "- А также 1 раз отправить код другу")

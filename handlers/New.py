@@ -315,10 +315,37 @@ async def mess(message: Message):
         await StateMachine.Start.set()
     # -----
     else:
+
         if message.text == "Нет скидки❌":
-            bonus = "0"
+            bonus = "Нет бонуса"
         else:
             bonus = message.text
+            bonus_from_table = str(await select_db("users", "user_id", "bonus", user_id))
+            if bonus == bonus_from_table:
+                my_bonus_counter = int(await select_db("users", "user_id", "my_bonus_counter", user_id))
+                if my_bonus_counter == 0:
+                    await message.answer("Бонус засчитан🔮")
+                    bonus = "Бонус засчитан"
+                    my_bonus_counter += 1
+                    await update_db("users", "user_id", "my_bonus_counter", user_id, my_bonus_counter)
+            else:
+                users_count = int(await select_db("admin", "code", "users_count", code))
+                counter = 1
+                while counter <= users_count:
+                    try:
+                        bonus_from_table = str(await select_db("users", "user_num", "bonus", counter))
+                    except:
+                        counter += 1
+                        continue
+                    if bonus == bonus_from_table:
+                        friend_bonus_counter = int(await select_db("users", "user_id", "friend_bonus_counter", user_id))
+                        if friend_bonus_counter == 0:
+                            await message.answer("Бонус засчитан🔮")
+                            bonus = "Бонус засчитан"
+                            friend_bonus_counter += 1
+                            await update_db("users", "user_id", "friend_bonus_counter", user_id, friend_bonus_counter)
+                            break
+                    counter += 1
 
         order_id = str(await select_db("users", "user_id", "orders_count", user_id)) + "$" + user_id
         await update_db("orders", "id", "bonus", order_id, bonus)

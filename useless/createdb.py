@@ -30,7 +30,10 @@ async def create_db():
                             "number varchar,"
                             "places_count integer,"
                             "autos_count integer,"
-                            "orders_count integer);")
+                            "orders_count integer,"
+                            "bonus varchar,"
+                            "my_bonus_counter integer default 0,"
+                            "friend_bonus_counter integer default 0);")
             except:
                 pass
             # -----
