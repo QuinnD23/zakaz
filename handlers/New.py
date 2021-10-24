@@ -340,12 +340,12 @@ async def mess(message: Message):
                         counter += 1
                         continue
                     if bonus == bonus_from_table:
-                        friend_bonus_counter = int(await select_db("users", "user_id", "friend_bonus_counter", user_id))
+                        friend_bonus_counter = int(await select_db("users", "user_num", "friend_bonus_counter", counter))
                         if friend_bonus_counter == 0:
                             await message.answer("Бонус засчитан🔮")
                             bonus = "Бонус засчитан"
                             friend_bonus_counter += 1
-                            await update_db("users", "user_id", "friend_bonus_counter", user_id, friend_bonus_counter)
+                            await update_db("users", "user_num", "friend_bonus_counter", counter, friend_bonus_counter)
                             break
                         else:
                             await message.answer("Этот код уже использован")
