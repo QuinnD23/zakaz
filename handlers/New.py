@@ -328,6 +328,9 @@ async def mess(message: Message):
                     bonus = "Бонус засчитан"
                     my_bonus_counter += 1
                     await update_db("users", "user_id", "my_bonus_counter", user_id, my_bonus_counter)
+                else:
+                    await message.answer("Вы уже использовали этот код")
+                    bonus = "Нет бонуса"
             else:
                 users_count = int(await select_db("admin", "code", "users_count", code))
                 counter = 1
@@ -344,6 +347,10 @@ async def mess(message: Message):
                             bonus = "Бонус засчитан"
                             friend_bonus_counter += 1
                             await update_db("users", "user_id", "friend_bonus_counter", user_id, friend_bonus_counter)
+                            break
+                        else:
+                            await message.answer("Этот код уже использован")
+                            bonus = "Нет бонуса"
                             break
                     counter += 1
 

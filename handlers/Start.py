@@ -279,9 +279,14 @@ async def mess(message: Message):
         await message.answer("💥Информация")
 
     if message.text == "Бонус🔮":
-        bonus = str(await select_db("users", "user_id", "bonus", user_id))
-        await message.answer("🔮Это ваш персональный код на скидку 10%:")
-        await message.answer(f"{bonus}")
-        await message.answer("⚡️Отправьте этот код при составлении заказа\n"
-                             "- Вы можете использовать этот код 1 раз\n"
-                             "- А также 1 раз отправить код другу")
+        friend_bonus_counter = int(await select_db("users", "user_id", "friend_bonus_counter", user_id))
+        my_bonus_counter = int(await select_db("users", "user_id", "my_bonus_counter", user_id))
+        if my_bonus_counter == 0 or friend_bonus_counter == 0:
+            bonus = str(await select_db("users", "user_id", "bonus", user_id))
+            await message.answer("🔮Это ваш персональный код на скидку 10%:")
+            await message.answer(f"{bonus}")
+            await message.answer("⚡️Отправьте этот код при составлении заказа\n"
+                                 "- Вы можете использовать этот код 1 раз\n"
+                                 "- А также 1 раз отправить код другу")
+        else:
+            await message.answer("Вы потратили свой персональный код")
