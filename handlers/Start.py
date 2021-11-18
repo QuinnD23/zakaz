@@ -51,7 +51,7 @@ async def mess(message: Message):
         admins_count = int(await select_db("counters", "code", "admins_count", code))
         while admin_num <= admins_count:
             try:
-                admin_name = str(await select_db("admins", "admin_num", "main_admin_name", admin_num))
+                admin_name = str(await select_db("admins", "admin_num", "admin_name", admin_num))
             except:
                 admin_num += 1
                 continue
