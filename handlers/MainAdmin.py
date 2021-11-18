@@ -25,7 +25,7 @@ async def mess(message: Message):
         await message.answer("Приветствую тебя, ⭐️Главный Администратор!", reply_markup=MainAdminMenu)
     # *****
 
-    if message.text == "Администраторы⭐️":
+    if message.text == "Администраторы💫":
         await message.answer("💫Список текущих Администраторов:", reply_markup=EditAdminsMenu)
         admin_num = 1
         admins_count = int(await select_db("counters", "code", "admins_count", code))

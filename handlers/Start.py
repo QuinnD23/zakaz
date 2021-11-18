@@ -47,19 +47,25 @@ async def mess(message: Message):
     else:
         # Проверка Админстратора
         user = True
-        admins_num = 1
+        admin_num = 1
         admins_count = int(await select_db("counters", "code", "admins_count", code))
-        while admins_num <= admins_count:
-            admin_name = str(await select_db("admins", "admins_num", "main_admin_name", admins_num))
+        while admin_num <= admins_count:
+            try:
+                admin_name = str(await select_db("admins", "admin_num", "main_admin_name", admin_num))
+            except:
+                admin_num += 1
+                continue
+
             if user_name == admin_name:
-                await update_db("admins", "admins_num", "admin_id", admins_num, user_id)
+                await update_db("admins", "admin_num", "admin_id", admin_num, user_id)
 
                 await message.answer("Приветствую тебя, 💫Администратор!", reply_markup=AdminMenu)
                 await StateMachine.Admin.set()
 
                 user = False
                 break
-            admins_num += 1
+
+            admin_num += 1
 
         # Пользователь
         if user:
