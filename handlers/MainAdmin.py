@@ -32,7 +32,7 @@ async def mess(message: Message):
         del_admin_num = 1
         while admin_num <= admins_count:
             try:
-                admin_name = str(await select_db("admins", "admins_num", "admin_name", admin_num))
+                admin_name = str(await select_db("admins", "admin_num", "admin_name", admin_num))
             except:
                 admin_num += 1
                 continue
@@ -40,7 +40,7 @@ async def mess(message: Message):
             await message.answer(f"{del_admin_num}. @{admin_name}")
 
             # del update
-            await update_db("admins", "admins_num", "del_admins_num", admin_num, del_admin_num)
+            await update_db("admins", "admin_num", "del_admin_num", admin_num, del_admin_num)
             del_admin_num += 1
 
             admin_num += 1
