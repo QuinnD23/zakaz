@@ -90,7 +90,7 @@ async def mess(message: Message):
 
     if message.text == "Интерфейс Пользователя📱":
         await message.answer("Что вы хотите изменить?", reply_markup=EditFaceMenu)
-        await StateMachine.EditServicesCommands.set()
+        await StateMachine.EditFaceCommands.set()
 
     if message.text == "Услуги📙":
         await message.answer("📙Список текущих Услуг:", reply_markup=EditServicesMenu)

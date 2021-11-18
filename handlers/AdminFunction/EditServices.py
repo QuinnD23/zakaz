@@ -15,7 +15,7 @@ from states.statates import StateMachine
 from kyeboards.marks import MainAdminMenu, BackMenu, AdminMenu
 
 
-@dp.message_handler(state=StateMachine.EditAdminsCommands)
+@dp.message_handler(state=StateMachine.EditServicesCommands)
 async def mess(message: Message):
     user_name = str(message.from_user.username)
     user_id = str(message.from_user.id)
