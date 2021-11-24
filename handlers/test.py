@@ -1,6 +1,7 @@
-services = "1 2 3 4 5"
-services_pos = services.find("4")
-services = services[:services_pos-1] + services[services_pos+1:]
+import datetime
 
-print(services)
-1235
+now_named_day = str(datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=3))).strftime("%A"))
+
+text = "Thursday"
+if text == now_named_day:
+    print(now_named_day)

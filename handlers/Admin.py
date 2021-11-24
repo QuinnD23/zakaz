@@ -1,6 +1,7 @@
 from loader import dp
 
-from aiogram.types import Message, ReplyKeyboardRemove
+from aiogram.types import Message, ReplyKeyboardRemove, CallbackQuery
+from aiogram.dispatcher.filters import Command
 
 # config
 from data.config import code
@@ -12,82 +13,181 @@ from handlers.db_commands import insert_db, update_db, select_db, delete_db
 from states.statates import StateMachine
 
 # marks
-from kyeboards.marks import AdminMenu, EditWorkersMenu, EditServicesMenu, EditFaceMenu
+from kyeboards.marks import AdminMenu, BackMenu, NotifyMenu
 
 
 @dp.message_handler(state=StateMachine.Admin)
 async def mess(message: Message):
-    user_name = str(message.from_user.username)
-    user_id = str(message.from_user.id)
 
-    # start
-    if message.text == "/start" or message.text == "Отменить◀️":
-        await message.answer("Приветствую тебя, 💫Администратор!", reply_markup=AdminMenu)
-    # *****
+    # ----- start
+    if message.text == "/start":
+        await message.answer("Приветствую тебя, администратор!", reply_markup=AdminMenu)
+    # -----
 
-    if message.text == "Сотрудники👩‍💼":
-        services_count = int(await select_db("counters", "code", "services_count", code))
-        if services_count == 0:
-            await message.answer("Сначала добавьте Услуги📙")
-        else:
-            await message.answer("👩‍💼Список текущих Сотрудников:", reply_markup=EditWorkersMenu)
-            worker_num = 1
-            workers_count = int(await select_db("counters", "code", "workers_count", code))
-            del_worker_num = 1
-            while worker_num <= workers_count:
-                try:
-                    worker_name = str(await select_db("workers", "worker_num", "worker_name", worker_num))
-                except:
-                    worker_num += 1
-                    continue
+    if message.text == "Добавить сотрудника✅":
+        await message.answer("Введите Ник Телеграм сотрудника:\n"
+                             "Пример: @kquinn1", reply_markup=BackMenu)
+        await StateMachine.Add.set()
 
-                # Услуги
-                services_text = ""
-
-                services = str(await select_db("workers", "worker_num", "services", worker_num))
-                service_position = 0
-                while True:
-                    try:
-                        service_num = int(services.split()[service_position])
-                    except:
-                        break
-                    type = str(await select_db("servicesoptions", "service_num", "type", service_num))
-                    services_text += f"{type}\n"
-
-                # Вывод Информации
-                await message.answer(f"{del_worker_num}. @{worker_name}\n"
-                                     f"{services_text}")
-
-                # del update
-                await update_db("workers", "worker_num", "del_worker_num", worker_num, del_worker_num)
-                del_worker_num += 1
-
-                worker_num += 1
-
-            await StateMachine.EditWorkersCommands.set()
-
-    if message.text == "Интерфейс Пользователя📱":
-        await message.answer("Что вы хотите изменить?", reply_markup=EditFaceMenu)
-        await StateMachine.EditServicesCommands.set()
-
-    if message.text == "Услуги📙":
-        await message.answer("📙Список текущих Услуг:", reply_markup=EditServicesMenu)
-        service_num = 1
-        services_count = int(await select_db("counters", "code", "services_count", code))
-        del_service_num = 1
-        while service_num <= services_count:
+    if message.text == "Удалить сотрудника❌":
+        await message.answer("Список текущих сотрудников:", reply_markup=BackMenu)
+        counter = 0
+        delete_id = 1
+        workers_count = int(await select_db("admin", "code", "workers_count", code))
+        while counter < workers_count:
             try:
-                type = str(await select_db("servicesoptions", "service_num", "type", service_num))
+                worker_name = str(await select_db("workers", "id", "worker_name", counter))
             except:
-                service_num += 1
+                counter += 1
                 continue
+            await message.answer(f"{delete_id}. {worker_name}")
+            await update_db("workers", "id", "delete_id", counter, delete_id)
+            counter += 1
+            delete_id += 1
 
-            await message.answer(f"{del_service_num}. {type}")
+        await message.answer("Введите номер сотрудника, которого хотите удалить:")
+        await StateMachine.Delete.set()
 
-            # del update
-            await update_db("servicesoptions", "service_num", "del_service_num", service_num, del_service_num)
-            del_service_num += 1
+    if message.text == "Создать уведомление⚡️":
+        await message.answer("Выберите тип уведомления:", reply_markup=NotifyMenu)
+        await StateMachine.NotifyChoice.set()
 
-            service_num += 1
+    if message.text == "Редактировать уведомление✏️":
+        await message.answer("Выберите тип уведомления:", reply_markup=NotifyMenu)
+        await StateMachine.EditMainChoice.set()
 
-        await StateMachine.EditServicesCommands.set()
+
+@dp.message_handler(state=StateMachine.EditMainChoice)
+async def mess(message: Message):
+
+    # ----- start
+    if message.text == "/start":
+        await message.answer("Приветствую тебя, администратор!", reply_markup=AdminMenu)
+    # -----
+
+    # ----- back
+    if message.text == "Отменить◀️":
+        await message.answer("Возвращаю...", reply_markup=AdminMenu)
+        await StateMachine.Admin.set()
+    # -----
+
+    if message.text == "День недели☀️":
+        await message.answer("⚡️Список текущих уведомлений:", reply_markup=BackMenu)
+        counter = 0
+        delete_id = 1
+        notifies_count = int(await select_db("admin", "code", "notifies_week_count", code))
+        while counter < notifies_count:
+            try:
+                text = str(await select_db("notifiesweek", "id", "text", counter))
+            except:
+                counter += 1
+                continue
+            named_day = str(await select_db("notifiesweek", "id", "named_day", counter))
+            if named_day == "Monday":
+                named_day = "пн"
+            if named_day == "Tuesday":
+                named_day = "вт"
+            if named_day == "Wednesday":
+                named_day = "ср"
+            if named_day == "Thursday":
+                named_day = "чт"
+            if named_day == "Friday":
+                named_day = "пт"
+            if named_day == "Saturday":
+                named_day = "сб"
+            if named_day == "Sunday":
+                named_day = "вс"
+            hour = str(await select_db("notifiesweek", "id", "hour", counter))
+            min = str(await select_db("notifiesweek", "id", "min", counter))
+
+            all_members = ""
+            members_counter = 0
+            members_count = int(await select_db("notifiesweek", "id", "members_count", counter))
+            while members_counter < members_count:
+                id_member = str(counter) + '#' + str(members_counter)
+                try:
+                    member_name = str(await select_db("notifiesmembersweek", "id_member", "member_name", id_member))
+                except:
+                    members_counter += 1
+                    continue
+                all_members = all_members + member_name + ", "
+                members_counter += 1
+
+            all_members = all_members[:-2]
+
+            await message.answer(f"{delete_id}💥{text}\n"
+                                 f"День недели - {named_day}\n"
+                                 f"Время - {hour}:{min}\n"
+                                 f"Сотрудники - {all_members}")
+            await update_db("notifiesweek", "id", "delete_id", counter, delete_id)
+            counter += 1
+            delete_id += 1
+
+        await message.answer("Введите номер уведомления, которое хотите изменить:")
+        await StateMachine.EditChoiceWeek.set()
+
+    if message.text == "Конкретная дата🌩":
+        await message.answer("⚡️Список текущих уведомлений:", reply_markup=BackMenu)
+        counter = 0
+        delete_id = 1
+        notifies_count = int(await select_db("admin", "code", "notifies_count", code))
+        while counter < notifies_count:
+            try:
+                text = str(await select_db("notifies", "id", "text", counter))
+            except:
+                counter += 1
+                continue
+            year = str(await select_db("notifies", "id", "year", counter))
+            month = str(await select_db("notifies", "id", "month", counter))
+            day = str(await select_db("notifies", "id", "day", counter))
+            hour = str(await select_db("notifies", "id", "hour", counter))
+            min = str(await select_db("notifies", "id", "min", counter))
+
+            all_members = ""
+            members_counter = 0
+            members_count = int(await select_db("notifies", "id", "members_count", counter))
+            while members_counter < members_count:
+                id_member = str(counter) + '#' + str(members_counter)
+                try:
+                    member_name = str(await select_db("notifiesmembers", "id_member", "member_name", id_member))
+                except:
+                    members_counter += 1
+                    continue
+                all_members = all_members + member_name + ", "
+                members_counter += 1
+
+            all_members = all_members[:-2]
+
+            await message.answer(f"{delete_id}💥{text}\n"
+                                 f"Дата - {day}.{month}.{year}\n"
+                                 f"Время - {hour}:{min}\n"
+                                 f"Сотрудники - {all_members}")
+            await update_db("notifies", "id", "delete_id", counter, delete_id)
+            counter += 1
+            delete_id += 1
+
+        await message.answer("Введите номер уведомления, которое хотите изменить:")
+        await StateMachine.EditChoice.set()
+
+
+@dp.message_handler(state=StateMachine.NotifyChoice)
+async def mess(message: Message):
+
+    # ----- start
+    if message.text == "/start":
+        await message.answer("Приветствую тебя, администратор!", reply_markup=AdminMenu)
+    # -----
+
+    # ----- back
+    if message.text == "Отменить◀️":
+        await message.answer("Возвращаю...", reply_markup=AdminMenu)
+        await StateMachine.Admin.set()
+    # -----
+
+    if message.text == "День недели☀️":
+        await message.answer("Введите Текст уведомления:", reply_markup=ReplyKeyboardRemove())
+        await StateMachine.NotifyTextWeek.set()
+
+    if message.text == "Конкретная дата🌩":
+        await message.answer("Введите Текст уведомления:", reply_markup=ReplyKeyboardRemove())
+        await StateMachine.NotifyText.set()

@@ -29,7 +29,7 @@ async def delete_db(table, wherekey, valuewhere):
         with conn.cursor(cursor_factory=psycopg2.extras.DictCursor) as cur:
             cur.execute(f"DELETE FROM {table} WHERE {wherekey} = %s;", (valuewhere,))
 
-# await update_db("info", "my_name", "money", username, 1000)
+# await update_db("info", "my_name", "money", username, code)
 # await insert_db("info", "my_name", username)
 # await select_db("info", "my_name", "lover", username)
 # await delete_db("spisok", "id", index)
