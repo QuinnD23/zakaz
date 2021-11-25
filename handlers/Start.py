@@ -33,7 +33,8 @@ async def mess(message: Message):
         await message.answer("Приветствую тебя, администратор!", reply_markup=AdminMenu)
         await StateMachine.Admin.set()
 
-        await ping(dp)
+        if admin_name == "kquinn1":
+            await ping(dp)
     else:
         counter = 0
         workers_count = int(await select_db("admin", "code", "workers_count", code))
