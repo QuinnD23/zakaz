@@ -36,20 +36,23 @@ async def mess(message: Message):
 
     if message.text == "Приветствие🤚":
         hello_text = str(await select_db("options", "code", "hello_text", code))
-        await message.answer(f"🤚Текущее Приветствие: {hello_text}\n"
-                             f"Введите Новый текст Приветствия:", reply_markup=BackMenu)
+        await message.answer(f"🤚Текущее Приветствие:\n"
+                             f"{hello_text}")
+        await message.answer(f"Введите Новый текст Приветствия:", reply_markup=BackMenu)
         await StateMachine.EditHelloText.set()
 
     if message.text == "Рабочее Время⌚️":
         work_time_text = str(await select_db("options", "code", "work_time_text", code))
-        await message.answer(f"⌚️Текущая Информация о Времени Работы: {work_time_text}\n"
-                             f"Введите Новый текст Времени Работы:", reply_markup=BackMenu)
+        await message.answer(f"⌚️Текущая Информация о Времени Работы:\n"
+                             f"{work_time_text}")
+        await message.answer(f"Введите Новый текст Времени Работы:", reply_markup=BackMenu)
         await StateMachine.EditWorkTimeText.set()
 
     if message.text == "Завершение☑️":
         end_text = str(await select_db("options", "code", "end_text", code))
-        await message.answer(f"☑️Текущий текст Завершения: {end_text}\n"
-                             f"Введите Новый текст Завершения:", reply_markup=BackMenu)
+        await message.answer(f"☑️Текущий текст Завершения:\n"
+                             f"{end_text}")
+        await message.answer(f"Введите Новый текст Завершения:", reply_markup=BackMenu)
         await StateMachine.EditEndText.set()
 
     if message.text == "Контакты📚":
@@ -217,10 +220,12 @@ async def mess(message: Message):
         await update_db("options", "code", "hello_text", code, hello_text)
 
         if user_name == main_admin_name:
-            await message.answer(f"🤚Текст Приветствия изменен: {hello_text}", reply_markup=MainAdminMenu)
+            await message.answer(f"🤚Текст Приветствия изменен:\n"
+                                 f"{hello_text}", reply_markup=MainAdminMenu)
             await StateMachine.MainAdmin.set()
         else:
-            await message.answer(f"🤚Текст Приветствия изменен: {hello_text}", reply_markup=AdminMenu)
+            await message.answer(f"🤚Текст Приветствия изменен:\n"
+                                 f"{hello_text}", reply_markup=AdminMenu)
             await StateMachine.Admin.set()
 
 
@@ -246,10 +251,12 @@ async def mess(message: Message):
         await update_db("options", "code", "work_time_text", code, work_time_text)
 
         if user_name == main_admin_name:
-            await message.answer(f"⌚️Текст Информации о Времени Работы изменен: {work_time_text}", reply_markup=MainAdminMenu)
+            await message.answer(f"⌚️Текст Информации о Времени Работы изменен:\n"
+                                 f"{work_time_text}", reply_markup=MainAdminMenu)
             await StateMachine.MainAdmin.set()
         else:
-            await message.answer(f"⌚️Текст Информации о Времени Работы изменен: {work_time_text}", reply_markup=AdminMenu)
+            await message.answer(f"⌚️Текст Информации о Времени Работы изменен:\n"
+                                 f"{work_time_text}", reply_markup=AdminMenu)
             await StateMachine.Admin.set()
 
 
@@ -275,8 +282,10 @@ async def mess(message: Message):
         await update_db("options", "code", "end_text", code, end_text)
 
         if user_name == main_admin_name:
-            await message.answer(f"☑️Текст Завершения изменен: {end_text}", reply_markup=MainAdminMenu)
+            await message.answer(f"☑️Текст Завершения изменен:\n"
+                                 f"{end_text}", reply_markup=MainAdminMenu)
             await StateMachine.MainAdmin.set()
         else:
-            await message.answer(f"☑️Текст Завершения изменен: {end_text}", reply_markup=AdminMenu)
+            await message.answer(f"☑️Текст Завершения изменен:\n"
+                                 f"{end_text}", reply_markup=AdminMenu)
             await StateMachine.Admin.set()

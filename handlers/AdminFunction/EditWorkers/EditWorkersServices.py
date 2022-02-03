@@ -135,7 +135,6 @@ async def mess(message: Message):
             else:
                 # del update
                 await update_db("servicesoptions", "service_num", "del_service_num", service_num, 0)
-                del_service_num += 1
 
             service_num += 1
 
