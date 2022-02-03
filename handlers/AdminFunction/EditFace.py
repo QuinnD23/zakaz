@@ -132,8 +132,6 @@ async def mess(message: Message):
         # Обновление числа контактов
         contacts_count = int(await select_db("counters", "code", "contacts_count", code)) + 1
         await update_db("counters", "code", "contacts_count", code, contacts_count)
-        real_contacts_count = int(await select_db("counters", "code", "real_contacts_count", code)) + 1
-        await update_db("counters", "code", "real_contacts_count", code, real_contacts_count)
 
         if user_name == main_admin_name:
             await message.answer(f"📚Контакт {type} добавлен", reply_markup=MainAdminMenu)
@@ -180,9 +178,9 @@ async def mess(message: Message):
                 # Удаление Контакта
                 await delete_db("contactsoptions", "del_contact_num", del_contact_num)
 
-                # Уменьшение реального количества Контактов
-                real_contacts_count = int(await select_db("counters", "code", "real_contacts_count", code)) - 1
-                await update_db("counters", "code", "real_contacts_count", code, real_contacts_count)
+                # Уменьшение количества Контактов
+                contacts_count = int(await select_db("counters", "code", "contacts_count", code)) - 1
+                await update_db("counters", "code", "contacts_count", code, contacts_count)
 
                 if user_name == main_admin_name:
                     await message.answer(f"❌Контакт {type} удален", reply_markup=MainAdminMenu)

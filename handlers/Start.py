@@ -79,16 +79,14 @@ async def mess(message: Message):
 
             # Проверка на Полную Регистрацию
             enter_contacts_count = int(await select_db("users", "user_id", "enter_contacts_count", user_id))
-            real_contacts_count = int(await select_db("counters", "code", "real_contacts_count", code))
+            contacts_count = int(await select_db("counters", "code", "contacts_count", code))
 
-            if enter_contacts_count == real_contacts_count:
+            if enter_contacts_count == contacts_count:
                 await message.answer(hello_text, reply_markup=UserMenu)
                 await StateMachine.User.set()
             else:
                 # На всякий случай сотрем все старые Контакты
                 contact_num = 1
-                contacts_count = int(await select_db("counters", "code", "contacts_count", code))
-
                 while contact_num <= contacts_count:
                     user_contact_id = str(contact_num) + '#' + user_id
                     try:
