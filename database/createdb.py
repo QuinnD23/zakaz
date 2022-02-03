@@ -97,6 +97,7 @@ async def create_db():
                             "workers_count integer default 0,"
                             "real_services_count integer default 0,"
                             "services_count integer default 0,"
+                            "real_contacts_count integer default 0,"
                             "contacts_count integer default 0,"
                             "code varchar);")
             except:
