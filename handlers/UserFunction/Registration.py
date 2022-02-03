@@ -32,7 +32,7 @@ async def mess(message: Message):
         last_enter_contact = int(await select_db("users", "user_id", "last_enter_contact", user_id))
 
         user_contact_id = str(last_enter_contact) + '#' + user_id
-        await insert_db("userscontacts", "user_contact_id")
+        await insert_db("userscontacts", "user_contact_id", user_contact_id)
 
         info = message.text
         await update_db("userscontacts", "user_contact_id", "info", user_contact_id, info)
