@@ -85,6 +85,9 @@ async def start_command(tag, user_name, user_id, dp: Dispatcher):
                         pass
                     contact_num += 1
 
+                # Обнулим счетчик введенных контактов
+                await update_db("users", "user_id", "enter_contacts_count", user_id, 0)
+
                 # Регистрация
                 if tag == "start":
                     await dp.bot.send_message(user_id, hello_text, reply_markup=ReplyKeyboardRemove())
