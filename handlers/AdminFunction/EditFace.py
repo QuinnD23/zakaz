@@ -184,10 +184,6 @@ async def mess(message: Message):
                 real_contacts_count = int(await select_db("counters", "code", "real_contacts_count", code)) - 1
                 await update_db("counters", "code", "real_contacts_count", code, real_contacts_count)
 
-                # Уменьшение количества Контактов
-                contacts_count = int(await select_db("counters", "code", "contacts_count", code)) - 1
-                await update_db("counters", "code", "contacts_count", code, contacts_count)
-
                 if user_name == main_admin_name:
                     await message.answer(f"❌Контакт {type} удален", reply_markup=MainAdminMenu)
                     await StateMachine.MainAdmin.set()
