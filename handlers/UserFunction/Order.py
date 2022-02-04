@@ -149,6 +149,9 @@ async def mess(message: Message):
                 # del update
                 await update_db("workers", "worker_num", "del_worker_num", worker_num, del_worker_num)
                 del_worker_num += 1
+            else:
+                # del update 0
+                await update_db("workers", "worker_num", "del_worker_num", worker_num, 0)
 
             worker_num += 1
 
@@ -182,13 +185,6 @@ async def mess(message: Message):
             check_num = False
 
         if check_num:
-            # Проверка на существования
-            check_table = True
-            try:
-                worker_name = str(await select_db("workers", "del_worker_num", "worker_name", del_worker_num))
-            except:
-                check_table = False
-
             # Проверка "Мастер не важен"
             orders_count = str(await select_db("users", "user_id", "orders_count", user_id))
             order_id = orders_count + '#' + user_id
@@ -196,6 +192,13 @@ async def mess(message: Message):
             if del_worker_num == del_no_worker:
                 check_table = True
                 worker_name = "Мастер не важен"
+            
+            # Проверка на существования
+            check_table = True
+            try:
+                worker_name = str(await select_db("workers", "del_worker_num", "worker_name", del_worker_num))
+            except:
+                check_table = False
 
             if check_table:
                 # Запись Мастера в Orders
