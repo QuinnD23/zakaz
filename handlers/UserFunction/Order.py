@@ -44,7 +44,7 @@ async def mess(message: Message):
             # Проверка на существования
             check_table = True
             try:
-                type = str(await select_db("servicesoptions", "del_service_num", "type", del_service_num))
+                service_num = str(await select_db("servicesoptions", "del_service_num", "service_num", del_service_num))
             except:
                 check_table = False
 
@@ -52,7 +52,7 @@ async def mess(message: Message):
                 # Запись Услуги в Orders
                 orders_count = str(await select_db("users", "user_id", "orders_count", user_id))
                 order_id = orders_count + '#' + user_id
-                await update_db("orders", "order_id", "service", order_id, type)
+                await update_db("orders", "order_id", "service", order_id, service_num)
 
                 # Информация о времени работы
                 work_time_text = str(await select_db("options", "code", "work_time_text", code))
@@ -127,12 +127,28 @@ async def mess(message: Message):
                 worker_num += 1
                 continue
 
-            # Вывод Информации
-            await message.answer(f"{del_worker_num}. {worker_name}")
+                # Проверка услуги у мастера
+                check_service = False
+                service_num = str(await select_db("orders", "order_id", "service", order_id))
+                services = str(await select_db("workers", "worker_name", "services", worker_name))
+                services_position = 0
+                while True:
+                    try:
+                        services_element = str(services.split()[services_position])
+                    except:
+                        break
+                    if services_element == service_num:
+                        check_service = True
+                    now_services_array.append(services_array_element)
+                    services_position += 1
 
-            # del update
-            await update_db("workers", "worker_num", "del_worker_num", worker_num, del_worker_num)
-            del_worker_num += 1
+            if check_service:
+                # Вывод Информации
+                await message.answer(f"{del_worker_num}. {worker_name}")
+
+                # del update
+                await update_db("workers", "worker_num", "del_worker_num", worker_num, del_worker_num)
+                del_worker_num += 1
 
             worker_num += 1
 

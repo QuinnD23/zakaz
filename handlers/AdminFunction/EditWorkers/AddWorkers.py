@@ -37,7 +37,6 @@ async def mess(message: Message):
     else:
         # Добавление сотрудника
         worker_name = message.text
-        worker_name = worker_name[1:]
         try:
             await insert_db("workers", "worker_name", worker_name)
         except:
@@ -56,7 +55,7 @@ async def mess(message: Message):
         workers_count = int(await select_db("counters", "code", "workers_count", code)) + 1
         await update_db("counters", "code", "workers_count", code, workers_count)
 
-        await message.answer(f"👩‍💼Сотрудник @{worker_name} добавлен")
+        await message.answer(f"👩‍💼Сотрудник {worker_name} добавлен")
 
         # Спсисок Текущих услуг
         await message.answer("📙Список текущих Услуг:")

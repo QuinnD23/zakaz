@@ -35,8 +35,8 @@ async def mess(message: Message):
     # *****
 
     if message.text == "Добавить Сотрудника👩‍💼":
-        await message.answer("🔖Пример: @kquinn1\n"
-                             "Введите Telegram Ник Сотрудника:", reply_markup=BackMenu)
+        await message.answer("🔖Пример: Данил @kquinn1\n"
+                             "Введите Имя Сотрудника:", reply_markup=BackMenu)
         await StateMachine.AddWorkers.set()
 
     if message.text == "Удалить Сотрудника❌":
