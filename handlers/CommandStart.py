@@ -84,7 +84,7 @@ async def start_command(tag, user_name, user_id, dp: Dispatcher):
                     except:
                         pass
                     contact_num += 1
-                
+
                 # Обнулим счетчик введенных контактов
                 await update_db("users", "user_id", "enter_contacts_count", user_id, 0)
 
