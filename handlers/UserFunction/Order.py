@@ -127,20 +127,20 @@ async def mess(message: Message):
                 worker_num += 1
                 continue
 
-                # Проверка услуги у мастера
-                check_service = False
-                service_num = str(await select_db("orders", "order_id", "service", order_id))
-                services = str(await select_db("workers", "worker_name", "services", worker_name))
-                services_position = 0
-                while True:
-                    try:
-                        services_element = str(services.split()[services_position])
-                    except:
-                        break
-                    if services_element == service_num:
-                        check_service = True
-                    now_services_array.append(services_array_element)
-                    services_position += 1
+            # Проверка услуги у мастера
+            check_service = False
+            service_num = str(await select_db("orders", "order_id", "service", order_id))
+            services = str(await select_db("workers", "worker_name", "services", worker_name))
+            services_position = 0
+            while True:
+                try:
+                    services_element = str(services.split()[services_position])
+                except:
+                    break
+                if services_element == service_num:
+                    check_service = True
+                    break
+                services_position += 1
 
             if check_service:
                 # Вывод Информации

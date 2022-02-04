@@ -89,7 +89,7 @@ async def mess(message: Message):
                         service_position += 1
 
                 # Вывод Информации
-                await message.answer(f"{del_worker_num}💥 @{worker_name}\n"
+                await message.answer(f"{del_worker_num}💥{worker_name}\n"
                                      f"{services_text}")
 
                 # del update
