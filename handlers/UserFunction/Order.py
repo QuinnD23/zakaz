@@ -188,17 +188,17 @@ async def mess(message: Message):
             # Проверка "Мастер не важен"
             orders_count = str(await select_db("users", "user_id", "orders_count", user_id))
             order_id = orders_count + '#' + user_id
-            del_no_worker = str(await select_db("orders", "order_id", "del_no_worker", order_id))
+            del_no_worker = int(await select_db("orders", "order_id", "del_no_worker", order_id))
             if del_worker_num == del_no_worker:
                 check_table = True
                 worker_name = "Мастер не важен"
-            
-            # Проверка на существования
-            check_table = True
-            try:
-                worker_name = str(await select_db("workers", "del_worker_num", "worker_name", del_worker_num))
-            except:
-                check_table = False
+            else:
+                # Проверка на существования
+                check_table = True
+                try:
+                    worker_name = str(await select_db("workers", "del_worker_num", "worker_name", del_worker_num))
+                except:
+                    check_table = False
 
             if check_table:
                 # Запись Мастера в Orders
