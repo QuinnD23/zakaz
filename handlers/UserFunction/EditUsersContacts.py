@@ -18,7 +18,7 @@ from states.statates import StateMachine
 from kyeboards.marks import UserMenu, BackMenu
 
 
-@dp.message_handler(state=StateMachine.User)
+@dp.message_handler(state=StateMachine.EditUsersContactsCommands)
 async def mess(message: Message):
     user_name = str(message.from_user.username)
     user_id = str(message.from_user.id)
