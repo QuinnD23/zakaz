@@ -98,7 +98,7 @@ async def mess(message: Message):
                     contact_num += 1
 
                 # Регистрация
-                await message.answer(hello_text)
+                await message.answer(hello_text, reply_markup=ReplyKeyboardRemove())
 
                 contact_num = 1
                 contacts_count = int(await select_db("counters", "code", "contacts_count", code))

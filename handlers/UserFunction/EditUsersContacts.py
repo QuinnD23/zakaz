@@ -75,8 +75,8 @@ async def mess(message: Message):
 
             if check_table:
                 # Запишем id Контакта, который изменяем
-                user_contact_id = str(await select_db("userscontacts", "del_user_contact_id", "user_contact_id", del_user_contact_id))
-                await update_db("users", "user_id", "user_contact_id", user_id, user_contact_id)
+                now_edit_contact = str(await select_db("userscontacts", "del_user_contact_id", "user_contact_id", del_user_contact_id))
+                await update_db("users", "user_id", "now_edit_contact", user_id, now_edit_contact)
 
                 await message.answer(f"🔖Выбранный Контакт: {info}\n"
                                      f"📘Введите Новую Информацию:")
@@ -107,8 +107,8 @@ async def mess(message: Message):
     else:
         # Обновление Контакта
         info = message.text
-        user_contact_id = str(await select_db("users", "user_id", "user_contact_id", user_id))
-        await update_db("userscontacts", "user_contact_id", "info", user_contact_id, info)
+        now_edit_contact = str(await select_db("users", "user_id", "now_edit_contact", user_id))
+        await update_db("userscontacts", "user_contact_id", "info", now_edit_contact, info)
 
         await message.answer("📘Контакт обновлен", reply_markup=UserMenu)
 
