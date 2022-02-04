@@ -41,7 +41,7 @@ async def mess(message: Message):
                 continue
 
             # Достаем информацию по типу Контакта
-            user_contact_id = contact_num + '#' + user_id
+            user_contact_id = str(contact_num) + '#' + user_id
 
             try:
                 info = str(await select_db("userscontacts", "user_contact_id", "info", user_contact_id))
