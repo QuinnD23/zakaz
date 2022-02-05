@@ -15,7 +15,7 @@ from handlers.CommandStart import start_command
 from states.statates import StateMachine
 
 # marks
-from kyeboards.marks import AdminMenu, EditWorkersMenu, EditServicesMenu, EditFaceMenu
+from kyeboards.marks import BackMenu, EditWorkersMenu, EditServicesMenu, EditFaceMenu
 
 
 @dp.message_handler(state=StateMachine.Admin)
@@ -103,3 +103,7 @@ async def mess(message: Message):
             service_num += 1
 
         await StateMachine.EditServicesCommands.set()
+
+    if message.text == "Реклама💎":
+        await message.answer("💎Введите рекламное сообщение:", reply_markup=BackMenu)
+        await StateMachine.AdsTextWait.set()

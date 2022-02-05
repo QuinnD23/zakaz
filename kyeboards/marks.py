@@ -15,6 +15,9 @@ MainAdminMenu = ReplyKeyboardMarkup(
         [
             KeyboardButton(text="Услуги📙"),
         ],
+        [
+            KeyboardButton(text="Реклама💎"),
+        ],
     ],
     resize_keyboard=True
 )
@@ -103,6 +106,18 @@ EditContactsMenu = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
+AdsMenu = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Отправить✅"),
+        ],
+        [
+            KeyboardButton(text="Отменить◀️"),
+        ],
+    ],
+    resize_keyboard=True
+)
+
 # Обычный Администратор
 AdminMenu = ReplyKeyboardMarkup(
     keyboard=[
@@ -114,6 +129,9 @@ AdminMenu = ReplyKeyboardMarkup(
         ],
         [
             KeyboardButton(text="Услуги📙"),
+        ],
+        [
+            KeyboardButton(text="Реклама💎"),
         ],
     ],
     resize_keyboard=True
