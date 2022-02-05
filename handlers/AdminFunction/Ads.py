@@ -91,8 +91,8 @@ async def mess(message: Message):
                              "Дождитесь завершения отправки", reply_markup=ReplyKeyboardRemove())
 
         if user_name == main_admin_name:
-            await message.answer("💎Реклама успешно отправлена", reply_markup=AdminMenu)
-            await StateMachine.Admin.set()
-        else:
             await message.answer("💎Реклама успешно отправлена", reply_markup=MainAdminMenu)
             await StateMachine.MainAdmin.set()
+        else:
+            await message.answer("💎Реклама успешно отправлена", reply_markup=AdminMenu)
+            await StateMachine.Admin.set()
