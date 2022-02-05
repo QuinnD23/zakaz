@@ -39,10 +39,10 @@ async def send_order(user_id, dp: Dispatcher):
     worker = str(await select_db("orders", "order_id", "worker", order_id))
 
     await dp.bot.send_message(channel_id, f"❗️Заказ\n"
-                                          f"🔷Имя Пользователя: @{user_name}"
+                                          f"🔷Имя Пользователя: @{user_name}\n"
                                           f"{contacts_text}\n"
                                           f"\n"
                                           f"📙Услуга: {service}\n"
-                                          f"🗓Желаемая Дата: {date}\n"
-                                          f"🕐Желаемое Время: {time}\n"
-                                          f"👩‍💼Желаемый Мастер: {worker}")
+                                          f"🗓Дата: {date}\n"
+                                          f"🕐Время: {time}\n"
+                                          f"👩‍💼Мастер: {worker}")
