@@ -206,6 +206,11 @@ async def mess(message: Message):
                 order_id = orders_count + '#' + user_id
                 await update_db("orders", "order_id", "worker", order_id, worker_name)
 
+                # Получение названия Услуги
+                service_num = str(await select_db("orders", "order_id", "service", order_id))
+                service = str(await select_db("servicesoptions", "service_num", "type", service_num))
+                await update_db("orders", "order_id", "service", order_id, service)
+
                 # Отправка Заказа в Группу Администраторов
                 await send_order(user_id, dp)
 

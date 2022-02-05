@@ -25,7 +25,7 @@ async def send_order(user_id, dp: Dispatcher):
         user_contact_id = str(contact_num) + '#' + user_id
         info = str(await select_db("userscontacts", "user_contact_id", "info", user_contact_id))
 
-        contacts_text += f"🔹{type} : {info}\n"
+        contacts_text += f"🔹{type}: {info}\n"
 
         contact_num += 1
 
