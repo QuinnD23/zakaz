@@ -68,6 +68,12 @@ async def mess(message: Message):
         except:
             pass
 
+        # Удаление из Users
+        try:
+            await delete_db("users", "user_name", admin_name)
+        except:
+            pass
+
         # Обновление числа администраторов
         admins_count = int(await select_db("counters", "code", "admins_count", code)) + 1
         await update_db("counters", "code", "admins_count", code, admins_count)
